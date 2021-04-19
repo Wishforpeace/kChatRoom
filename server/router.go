@@ -10,14 +10,25 @@ func SetupRouter() *gin.Engine {
 	r := gin.New()
 
 	//引入视图/静态资源
-	//r.LoadHTMLGlob("server/views/**/*")
+	r.LoadHTMLGlob("server/views/**/*")
 	r.Static("/static", "./static/chat")
+
+	//首页跳转
+	r.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "/view/login")
+	})
+
 	//前台视图
 	view := r.Group("view")
 	{
+		view.GET("login", func(c *gin.Context) {
+			c.HTML(http.StatusOK, "login.html", nil)
+		})
+
 		view.GET("test", func(c *gin.Context) {
 			c.String(http.StatusOK, "hello")
 		})
+
 	}
 	// 聊天接口
 	chat := r.Group("chat")

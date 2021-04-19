@@ -1,9 +1,12 @@
 package main
 
-import "y2/kChatRoom/server"
+import (
+	"kChatRoom/common"
+	"kChatRoom/server"
+)
 
 func init() {
-
+	common.CfgInit()
 }
 
 func main() {
