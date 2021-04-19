@@ -5,7 +5,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 	"github.com/spf13/viper"
 	"io/ioutil"
-	"kChatRoom/server/model/userModel"
+	userModel2 "kChatRoom/app/client/model/userModel"
 	"kChatRoom/utils/cookie"
 	"log"
 	"os"
@@ -23,7 +23,7 @@ var RedisPoolGlobal *redis.Pool
 var CookieGlobal *cookie.Cookie
 
 //UserGlobal user
-var UserGlobal map[string]*userModel.UserModel
+var UserGlobal map[string]*userModel2.UserModel
 
 // CfgInit 载入配置文件
 func CfgInit() {
@@ -59,12 +59,14 @@ func initRedis(cfg *viper.Viper) {
 		Dial: func() (redis.Conn, error) { //初始化链接的代码
 			pwd := cfg.GetString("password")
 			c, err := redis.Dial(cfg.GetString("netWork"), cfg.GetString("address"))
-			if _, err := c.Do("AUTH", pwd); err != nil {
-				err := c.Close()
-				if err != nil {
+			if pwd != "" {
+				if _, err := c.Do("AUTH", pwd); err != nil {
+					err := c.Close()
+					if err != nil {
+						return nil, err
+					}
 					return nil, err
 				}
-				return nil, err
 			}
 			db := cfg.GetInt("dbSelect")
 			if _, err := c.Do("SELECT", db); err != nil {

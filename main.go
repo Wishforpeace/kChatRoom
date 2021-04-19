@@ -1,8 +1,8 @@
 package main
 
 import (
+	"kChatRoom/app"
 	"kChatRoom/common/global"
-	"kChatRoom/server"
 )
 
 func init() {
@@ -11,7 +11,7 @@ func init() {
 }
 
 func main() {
-	err := server.SetupRouter().Run(":8060")
+	err := app.SetupRouter().Run(":8060")
 	if err != nil {
 		return
 	}

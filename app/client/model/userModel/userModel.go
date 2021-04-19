@@ -19,5 +19,5 @@ type UserModel struct {
 
 // TableName  自定义表明
 func (t *UserModel) TableName() string {
-	return "c_user"
+	return "c_users"
 }

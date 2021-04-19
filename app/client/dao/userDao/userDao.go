@@ -2,7 +2,7 @@ package userDao
 
 import (
 	"gorm.io/gorm"
-	"kChatRoom/server/model/userModel"
+	userModel2 "kChatRoom/app/client/model/userModel"
 	"kChatRoom/utils/db"
 )
 
@@ -18,8 +18,8 @@ func NewUserDao() *userDao {
 }
 
 // GetUserByName 通过用户名获取用户
-func (t *userDao) GetUserByName(username string) *userModel.UserModel {
-	user := &userModel.UserModel{}
+func (t *userDao) GetUserByName(username string) *userModel2.UserModel {
+	user := &userModel2.UserModel{}
 	Db := t.Db //拷贝全局Db 避免变量污染
 	Db = Db.Where("username = ?", username)
 	_ = Db.Take(user)
@@ -27,8 +27,8 @@ func (t *userDao) GetUserByName(username string) *userModel.UserModel {
 }
 
 // GetUserByMail 通过邮箱查找用户
-func (t *userDao) GetUserByMail(mail string) *userModel.UserModel {
-	user := &userModel.UserModel{}
+func (t *userDao) GetUserByMail(mail string) *userModel2.UserModel {
+	user := &userModel2.UserModel{}
 	Db := t.Db //拷贝全局Db 避免变量污染
 	Db = Db.Where("mail = ?", mail)
 	_ = Db.Take(user)
@@ -36,15 +36,15 @@ func (t *userDao) GetUserByMail(mail string) *userModel.UserModel {
 }
 
 // GetUserById 通过用户id获取用户
-func (t *userDao) GetUserById(id int) *userModel.UserModel {
+func (t *userDao) GetUserById(id int) *userModel2.UserModel {
 	Db := t.Db
-	user := &userModel.UserModel{}
+	user := &userModel2.UserModel{}
 	_ = Db.First(user, id)
 	return user
 }
 
 // AddUser 添加用户
-func (t *userDao) AddUser(user *userModel.UserModel) (bool, string) {
+func (t *userDao) AddUser(user *userModel2.UserModel) (bool, string) {
 	//判断是否存在
 	findUser := t.GetUserByName(user.UserName)
 	if findUser.UserName != "" {
