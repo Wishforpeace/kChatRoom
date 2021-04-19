@@ -14,3 +14,10 @@ const (
 type Message struct {
 	Code int `json:"code"`
 }
+
+// RequestMsg ajax请求结构体
+type RequestMsg struct {
+	Code int         `json:"code"`
+	Res  interface{} `json:"res"`
+	Msg  string      `json:"msg"`
+}

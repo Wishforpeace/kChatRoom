@@ -1,10 +1,12 @@
-package common
+package global
 
 import (
 	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"github.com/spf13/viper"
 	"io/ioutil"
+	"kChatRoom/server/model/userModel"
+	"kChatRoom/utils/cookie"
 	"log"
 	"os"
 	"strings"
@@ -16,6 +18,12 @@ var ViperGlobal *viper.Viper
 
 //RedisPoolGlobal redis pool
 var RedisPoolGlobal *redis.Pool
+
+// CookieGlobal  cookie config
+var CookieGlobal *cookie.Cookie
+
+//UserGlobal user
+var UserGlobal map[string]*userModel.UserModel
 
 // CfgInit 载入配置文件
 func CfgInit() {
@@ -31,11 +39,15 @@ func CfgInit() {
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Parse config file fail: %s", err.Error()))
 	}
+
 	//global viper
 	ViperGlobal = viper.Sub("settings")
 
 	cfgRedis := viper.Sub("settings.redis")
 	initRedis(cfgRedis)
+
+	cookieRedis := viper.Sub("settings.cookie")
+	InitCookie(cookieRedis)
 }
 
 //initRedis 初始化redis
@@ -66,4 +78,14 @@ func initRedis(cfg *viper.Viper) {
 		},
 	}
 	RedisPoolGlobal = pool
+}
+
+// InitCookie cookie
+func InitCookie(cfg *viper.Viper) {
+	CookieGlobal = &cookie.Cookie{
+		Path:     cfg.GetString("path"),
+		Domain:   cfg.GetString("cookieDomain"),
+		Secure:   cfg.GetBool("secure"),
+		HttpOnly: cfg.GetBool("httpOnly"),
+	}
 }

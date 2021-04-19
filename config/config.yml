@@ -30,3 +30,12 @@ settings:
     idleTimeout: 100
     # address
     address: 0.0.0.0:6379
+
+  cookie:
+    # 有效域
+    path: /
+    # 域名
+    cookieDomain: 127.0.0.1:8060
+
+    secure: false
+    httpOnly: true

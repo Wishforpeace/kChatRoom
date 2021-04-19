@@ -1,7 +1,9 @@
 package server
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"kChatRoom/utils/help"
 	"net/http"
 )
 
@@ -16,6 +18,12 @@ func SetupRouter() *gin.Engine {
 	//首页跳转
 	r.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "/view/login")
+	})
+
+	r.GET("test", func(c *gin.Context) {
+		//help.SetCookie("test","123",3600,c)
+		code := help.CreateValidateCode(6)
+		help.SendMail([]string{"738256016@qq.com"}, "kChatRoom注册验证码", fmt.Sprintf("<h1>kChatRoom注册验证码为：%s</h1><br><p>15分钟内有效</p>", code))
 	})
 
 	//前台视图

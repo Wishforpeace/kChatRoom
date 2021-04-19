@@ -1,11 +1,11 @@
-package utils
+package db
 
 import (
 	"fmt"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"kChatRoom/common"
+	"kChatRoom/common/global"
 )
 
 var globalDb *gorm.DB
@@ -13,12 +13,12 @@ var globalDb *gorm.DB
 // NewDB gorm DB
 func NewDB() *gorm.DB {
 	if globalDb == nil {
-		globalDb, _ = initMysql(common.ViperGlobal.Sub("database"))
+		globalDb, _ = initMysql(global.ViperGlobal.Sub("database"))
 	}
 	sqlDb, _ := globalDb.DB()
 	if err := sqlDb.Ping(); err != nil {
 		_ = sqlDb.Close()
-		globalDb, _ = initMysql(common.ViperGlobal.Sub("database"))
+		globalDb, _ = initMysql(global.ViperGlobal.Sub("database"))
 	}
 	return globalDb
 }

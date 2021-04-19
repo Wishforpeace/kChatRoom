@@ -1,12 +1,13 @@
 package main
 
 import (
-	"kChatRoom/common"
+	"kChatRoom/common/global"
 	"kChatRoom/server"
 )
 
 func init() {
-	common.CfgInit()
+	global.CfgInit()
+
 }
 
 func main() {
