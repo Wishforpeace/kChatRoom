@@ -7,7 +7,7 @@ import (
 
 func init() {
 	global.CfgInit()
-
+	global.GblInit()
 }
 
 func main() {

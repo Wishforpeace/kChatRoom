@@ -775,7 +775,7 @@
                         if(e.code == 200){
                             layer.msg(e.msg,{icon:6})
                             setTimeout(function () {
-                                window.location.href="/view/index"
+                                window.location.reload()
                             },1300)
                         }else{
                             layer.msg(e.msg,{icon:5})

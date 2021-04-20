@@ -5,7 +5,8 @@ import (
 	"github.com/gomodule/redigo/redis"
 	"github.com/spf13/viper"
 	"io/ioutil"
-	userModel2 "kChatRoom/app/client/model/userModel"
+	"kChatRoom/app/service/model"
+	"kChatRoom/common/message"
 	"kChatRoom/utils/cookie"
 	"log"
 	"os"
@@ -22,8 +23,29 @@ var RedisPoolGlobal *redis.Pool
 // CookieGlobal  cookie config
 var CookieGlobal *cookie.Cookie
 
-//UserGlobal user
-var UserGlobal map[string]*userModel2.UserModel
+//ClientsGlobal 在线用户列表
+var ClientsGlobal map[string]*model.Client
+
+//OnlineChan 在线用户加入
+var OnlineChan chan *model.Client
+
+//LeaveChan 离线用户加入
+var LeaveChan chan *model.Client
+
+//MessageChan 等待发送消息加入
+var MessageChan chan *message.Message
+
+// LoginUsers 二次验证过登陆的用户
+var LoginUsers map[string]bool
+
+//GblInit 初始化
+func GblInit() {
+	ClientsGlobal = make(map[string]*model.Client)
+	OnlineChan = make(chan *model.Client, 10)
+	LeaveChan = make(chan *model.Client, 10)
+	MessageChan = make(chan *message.Message, 10)
+	LoginUsers = make(map[string]bool)
+}
 
 // CfgInit 载入配置文件
 func CfgInit() {

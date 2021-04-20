@@ -16,6 +16,11 @@ func SetCookie(key, val string, c *gin.Context) {
 	c.SetCookie(key, val, 86400, global.CookieGlobal.Path, global.CookieGlobal.Domain, global.CookieGlobal.Secure, global.CookieGlobal.HttpOnly)
 }
 
+//DelCookie 删除cookie
+func DelCookie(key string, c *gin.Context) {
+	c.SetCookie(key, "", -1, global.CookieGlobal.Path, global.CookieGlobal.Domain, global.CookieGlobal.Secure, global.CookieGlobal.HttpOnly)
+}
+
 //CreateValidateCode 生成验证码
 //width 验证码长度
 func CreateValidateCode(width int) string {

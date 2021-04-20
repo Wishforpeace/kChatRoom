@@ -7,6 +7,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 	userDao3 "kChatRoom/app/client/dao/userDao"
 	userModel2 "kChatRoom/app/client/model/userModel"
+	"kChatRoom/common"
 	"kChatRoom/common/global"
 	"kChatRoom/common/message"
 	"kChatRoom/utils/help"
@@ -27,7 +28,15 @@ func Login(ctx *gin.Context) {
 		md5Pwd := fmt.Sprintf("%x", md5.Sum([]byte(pwd)))
 		fmt.Println(md5Pwd)
 		if md5Pwd == findUser.Password {
+			res, _ := common.Encrypt(fmt.Sprintf("%v", time.Now().UnixNano()), []byte("1d12jha8"))
 			help.SetCookie("user", findUser.Mail, ctx)
+			help.SetCookie("auth", res, ctx)
+			//添加redis登陆成功消息，用于安全验证
+			rd := global.RedisPoolGlobal.Get()
+			defer rd.Close()
+			rd.Do("Set", fmt.Sprintf("login_%s", mail), res)
+			rd.Do("EXPIRE", fmt.Sprintf("login_%s", mail), 30)
+
 			msg.Code = 200
 			msg.Msg = "登陆成功！"
 		} else {
