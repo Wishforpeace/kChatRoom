@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>kChatRoom在线体验</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.8.2/jquery.js"></script>
+    <script src="https://www.layuicdn.com/layer-v3.1.1/layer.js"></script>
+    <script src="/static/js/common.js"></script>
+  </head>
+<body >
+<div class="container">
+  <div class="row">
+    <nav class="menu">
+      <ul class="items">
+        <li class="item">
+          <i class="fa fa-home" aria-hidden="true"></i>
+        </li>
+        <li class="item">
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </li>
+        <li class="item">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </li>
+        <li class="item item-active">
+          <i class="fa fa-commenting" aria-hidden="true"></i>
+        </li>
+        <li class="item">
+          <i class="fa fa-file" aria-hidden="true"></i>
+        </li>
+        <li class="item">
+          <i class="fa fa-cog" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="discussions">
+      <div class="discussion search">
+        <div class="searchbar">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          <input type="text" placeholder="Search..."/>
+        </div>
+      </div>
+      <div class="discussion message-active">
+        <div class="photo" style="background-image: url(https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg);">
+          <div class="online"></div>
+        </div>
+        <div class="desc-contact">
+          <p class="name">Megan Leib</p>
+          <p class="message">9 pm at the bar if possible 😳</p>
+        </div>
+        <div class="timer">12 sec</div>
+      </div>
+
+      <div class="discussion">
+        <div class="photo" style="background-image: url(http://e0.365dm.com/16/08/16-9/20/theirry-henry-sky-sports-pundit_3766131.jpg?20161212144602);">
+          <div class="online"></div>
+        </div>
+        <div class="desc-contact">
+          <p class="name">Dave Corlew</p>
+          <p class="message">Let's meet for a coffee or something today ?</p>
+        </div>
+        <div class="timer">3 min</div>
+      </div>
+
+      <div class="discussion">
+        <div class="photo" style="background-image: url(https://tinyclipart.com/resource/man/man-5.jpg);">
+        </div>
+        <div class="desc-contact">
+          <p class="name">Jerome Seiber</p>
+          <p class="message">I've sent you the annual report</p>
+        </div>
+        <div class="timer">42 min</div>
+      </div>
+
+      <div class="discussion">
+        <div class="photo" style="background-image: url(http://thomasdaubenton.xyz/portfolio/images/photo.jpg);">
+          <div class="online"></div>
+        </div>
+        <div class="desc-contact">
+          <p class="name">Thomas Dbtn</p>
+          <p class="message">See you tomorrow ! 🙂</p>
+        </div>
+        <div class="timer">2 hour</div>
+      </div>
+
+      <div class="discussion">
+        <div class="photo" style="background-image: url(http://www.boutique-uns.com/uns/185-home_01grid/polo-femme.jpg);">
+        </div>
+        <div class="desc-contact">
+          <p class="name">Elsie Amador</p>
+          <p class="message">What the f**k is going on ?</p>
+        </div>
+        <div class="timer">1 day</div>
+      </div>
+
+      <div class="discussion">
+        <div class="photo" style="background-image: url(https://images.pexels.com/photos/979602/pexels-photo-979602.jpeg?auto=compress&cs=tinysrgb&h=350);">
+        </div>
+        <div class="desc-contact">
+          <p class="name">Billy Southard</p>
+          <p class="message">Ahahah 😂</p>
+        </div>
+        <div class="timer">4 days</div>
+      </div>
+
+      <div class="discussion">
+        <div class="photo" style="background-image: url(http://static.jbcgroup.com/news/pictures/cc70ae498569ecc11eaeff09224d4ba5.jpg);">
+          <div class="online"></div>
+        </div>
+        <div class="desc-contact">
+          <p class="name">Paul Walker</p>
+          <p class="message">You can't see me</p>
+        </div>
+        <div class="timer">1 week</div>
+      </div>
+    </section>
+    <section class="chat">
+      <div class="header-chat">
+        <i class="icon fa fa-user-o" aria-hidden="true"></i>
+        <p class="name">Megan Leib</p>
+        <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+      </div>
+      <div class="messages-chat">
+        {{/*
+        <div class="message">
+          <div class="photo" style="background-image: url(http://e0.365dm.com/16/08/16-9/20/theirry-henry-sky-sports-pundit_3766131.jpg?20161212144602);">
+            <div class="online"></div>
+          </div>
+          <div style="display: inline-block;margin-top: 30px">
+            <span style="margin-left: 20px"> Tom  </span><br>
+            <p class="text"> Hi, how are you ? </p>
+          </div>
+        </div>
+
+        <p class="time">17:30</p>
+
+      <div class="message text-only">
+          <div class="response">
+            <p class="text"> Hey Megan ! It's been a while 😃</p>
+          </div>
+        </div>
+        <div class="message text-only">
+          <div class="response">
+            <div style="display: inline-block;">
+              <p class="text"> Hey Megan ! It's been a while 😃</p>
+            </div>
+            <div  class="photo" style="background-image: url(http://e0.365dm.com/16/08/16-9/20/theirry-henry-sky-sports-pundit_3766131.jpg?20161212144602);display: inline-block">
+              <div class="online"></div>
+            </div>
+          </div>
+        </div>
+        */}}
+      </div>
+
+      <div class="footer-chat">
+        <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
+        <input type="text" id="msg" class="write-message" placeholder="文明发言..."></input>
+        <i class="icon send fa fa-paper-plane-o clickable sendMsg" aria-hidden="true"> 发送</i>
+      </div>
+    </section>
+  </div>
+</div>
+<script>
+  const TypeSms = "TypeSms" //群发
+  TypeSmsOne = "TypeSmsOne" //私发
+  var key = "{{.key}}"
+  var mail = "{{.mail}}"
+  var link = "ws://localhost:8060/service/ws" + "?key=" + key + "&mail=" + mail
+  var UserInfo = {}
+
+  {
+    var ws = new WebSocket(link);
+//连接成功后的回掉函数
+    ws.onopen = function(evt) {
+      console.log("Connection open ...");
+    };
+
+//接收来自服务断的消息
+    ws.onmessage = function(evt) {
+      //二进制消息
+      if ( evt.data instanceof ArrayBuffer) {
+        var buffer = evt.data
+        console.log("Received arraybuffer");
+      }else{
+        var data = evt.data //消息体
+        AddMsg(0,data)
+      }
+    };
+//关闭连接 连接失败！
+    ws.onclose = function(evt) {
+      console.log("Connection closed.");
+      layer.msg("断开连接，请注销重新登陆！",{icon:5})
+      setTimeout(function () {
+        //window.location.href="/view/logout"
+      },1400)
+    };
+  }
+
+  (function () {
+    $.ajax({
+      url:buildUrl("/api/getUserInfo"),
+      type:"get",
+      dataType:"json",
+      success:function (e) {
+        UserInfo = e.res
+        console.log(UserInfo)
+      },
+      error:function (e){
+        console.log(e)
+        layer.msg("未知错误！",{icon: 5})
+      }
+    })
+  })()
+
+  //type:"TypeSms" //群发 "TypeSmsOne" //私发
+  //{"type":"TypeLogin","mail":"188337190580@qq.com","username":"张三","to_uid":10,"msg":"test"}
+  //发送消息
+  $(".sendMsg").click(function () {
+    var msg = $("#msg").val()
+    if(msg === ""){
+      layer.msg("发送消息不能为空！")
+      return false
+    }
+    if(ws.readyState === ws.OPEN){
+      var Message = '{"type":"TypeSms","mail":"'+mail+'","username":"'+UserInfo.username+'","to_uid":0,"msg":"'+msg+'"}'
+      ws.send(Message)
+      AddMsg(1,Message)
+      $("#msg").val("")
+    }
+  })
+  $(document).keydown(function(e){
+    if(e.keyCode==13){
+      if(document.activeElement.id==="msg" ){
+        $(".sendMsg").click();
+      }
+    }
+  });
+</script>
+</body>
+</html>

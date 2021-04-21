@@ -8,44 +8,59 @@
 </head>
 <body>
   <script>
-
+    const TypeSms = "TypeSms" //群发
+          TypeSmsOne = "TypeSmsOne" //私发
     var key = "{{.key}}"
     var mail = "{{.mail}}"
     var link = "ws://localhost:8060/service/ws" + "?key=" + key + "&mail=" + mail
+    var UserInfo = {}
+
     var ws = new WebSocket(link);
     //连接成功后的回掉函数
     ws.onopen = function(evt) {
       console.log("Connection open ...");
-      //ws.send("Hello WebSockets!");
     };
 
     //接收来自服务断的消息
     ws.onmessage = function(evt) {
-      //文本消息
-      if(typeof evt.data === String){
-        var data = evt.data //消息体
-        console.log("Received Message: " + data);
-        ws.close();
-      }
       //二进制消息
       if ( evt.data instanceof ArrayBuffer) {
         var buffer = evt.data
         console.log("Received arraybuffer");
+      }else{
+        var data = evt.data //消息体
+        AddMsg(0,data)
       }
-
     };
     //关闭连接 连接失败！
     ws.onclose = function(evt) {
       console.log("Connection closed.");
-      layer.msg("请重新登陆！",{icon:5})
+      layer.msg("断开连接，请注销重新登陆！",{icon:5})
       setTimeout(function () {
-        window.location.href = "/view/logout"
+        //window.location.href="/view/logout"
       },1400)
     };
 
     $(function () {
+
+      (function () {
+        $.ajax({
+          url:buildUrl("/api/getUserInfo"),
+          type:"get",
+          dataType:"json",
+          success:function (e) {
+            UserInfo = e.res
+            console.log(UserInfo)
+          },
+          error:function (e){
+            console.log(e)
+            layer.msg("未知错误！",{icon: 5})
+          }
+        })
+      })()
+
       //type:"TypeSms" //群发 "TypeSmsOne" //私发
-      //{"type":"TypeLogin","mail":"wew@qq.com","to_uid":10,"msg":"test"}
+      //{"type":"TypeLogin","mail":"188337190580@qq.com","username":"张三","to_uid":10,"msg":"test"}
       //发送消息
       $(".sendMsg").click(function () {
          var msg = $("#msg").val()
@@ -54,20 +69,62 @@
           return false
         }
          if(ws.readyState === ws.OPEN){
-           var Message = '{"type":"TypeSms","mail":"18337180580@163.com","to_uid":0,"msg":"'+msg+'"}'
+           var Message = '{"type":"TypeSms","mail":"'+mail+'","username":"'+UserInfo.username+'","to_uid":0,"msg":"'+msg+'"}'
            ws.send(Message)
+           AddMsg(1,Message)
+           $("#msg").val("")
          }
       })
-    })
 
+
+      $(document).keydown(function(e){
+        if(e.keyCode==13){
+          if(document.activeElement.id==="msg" ){
+            $(".sendMsg").click();
+          }
+        }
+      });
+
+    })
+    //追加消息
+    //type :1 me 0 :you
+    function AddMsg(type , msg){
+      var Msg = JSON.parse(msg)
+      let str = ""
+      //群发或者私聊
+      if (Msg.type === TypeSms || Msg.type === TypeSmsOne){
+        str = "<div class=\"bubble ";
+        if (type === 1){
+          str +=" me "
+        }else{
+          str +=" you "
+        }
+        str += "\">"+Msg.msg +"</div>"
+      }else{
+        str ="<div class=\"conversation-notice\"><span>"+Msg.msg+"</span></div>"
+      }
+      $(".active-chat").append(str)
+
+    }
+
+    function buildUrl(url){
+      return url +"?key="+key+"&mail="+mail
+    }
   </script>
 
   <div class="wrapper">
     <div class="container">
+      <div style="    float: left;
+    width: 8%;
+    height: 100%;
+    border: 1px solid var(--light);
+    background-color: var(--white);" class="left_one">
+        11121
+      </div>
       <div class="left">
         <div class="top">
           <input type="text" placeholder="Search" />
-          <a href="javascript:;" class="search"></a>
+          <a href="/view/logout" class="search"></a>
         </div>
         <ul class="people">
           <li class="person active" >
@@ -76,25 +133,25 @@
             <span class="time">14:09</span>
             <span class="preview">I was wondering...</span>
           </li>
-          <li class="person" data-chat="person2">
+          {{/*<li class="person" data-chat="person2">
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/dog.png" alt="" />
             <span class="name">Dog Woofson</span>
             <span class="time">1:44 PM</span>
             <span class="preview">I've forgotten how it felt before</span>
-          </li>
+          </li>*/}}
 
         </ul>
       </div>
       <div class="right">
         <div class="top"><span>To: <span class="name">公共聊天室</span></span></div>
-        <div class="chat active-chat" data-chat="person2">
-          <div class="conversation-start">
+        <div class="chat active-chat" >
+          {{/*<div class="conversation-start">
             <span>Today, 5:38 PM</span>
           </div>
           <div class="bubble you">
             Hello, can you hear me?
           </div>
-          <div class="bubble you">
+          <div class="bubble me">
             I'm in California dreaming
           </div>
           <div class="bubble me">
@@ -108,9 +165,8 @@
           </div>
           <div class="bubble you">
             I've forgotten how it felt before
-          </div>
+          </div>*/}}
         </div>
-
         <div class="write">
           <a href="javascript:;" class="write-link smiley"></a>
           <input id="msg"  type="text" />
@@ -118,6 +174,7 @@
           <a href="javascript:;" class="write-link sendMsg">发送</a>
         </div>
       </div>
+
     </div>
   </div>
   <script>
@@ -193,14 +250,14 @@
     position: relative;
     top: 50%;
     left: 50%;
-    width: 80%;
+    width: 90%;
     height: 75%;
     background-color: var(--white);
     transform: translate(-50%, -50%);
   }
   .container .left {
     float: left;
-    width: 37.6%;
+    width: 34%;
     height: 100%;
     border: 1px solid var(--light);
     background-color: var(--white);
@@ -325,7 +382,7 @@
   .container .right {
     position: relative;
     float: left;
-    width: 62.4%;
+    width: 58%;
     height: 100%;
   }
   .container .right .top {
@@ -444,6 +501,7 @@
     display: inline-block;
     text-decoration: none;
     line-height: 40px;
+    margin-left: 22px;
   }
   .container .right .write .write-link.send:before {
     display: inline-block;
@@ -521,6 +579,32 @@
     left: 0;
   }
   .container .right .conversation-start span:after {
+    right: 0;
+  }
+
+  .container .right .conversation-notice {
+    position: relative;
+    width: 100%;
+    margin-bottom: 27px;
+    text-align: center;
+  }
+  .container .right .conversation-notice span {
+    font-size: 14px;
+    display: inline-block;
+    color: var(--grey);
+  }
+  .container .right .conversation-notice span:before, .container .right .conversation-notice span:after {
+    position: absolute;
+    top: 10px;
+    display: inline-block;
+    width: 30%;
+    height: 1px;
+    content: "";
+  }
+  .container .right .conversation-notice span:before {
+    left: 0;
+  }
+  .container .right .conversation-notice span:after {
     right: 0;
   }
 

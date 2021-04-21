@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	userController2 "kChatRoom/app/client/controller/userController"
+	userDao2 "kChatRoom/app/client/dao/userDao"
 	"kChatRoom/app/service"
 	"kChatRoom/common/global"
 	"kChatRoom/common/message"
@@ -59,7 +60,7 @@ func SetupRouter() *gin.Engine {
 
 	//引入视图/静态资源
 	r.LoadHTMLGlob("app/client/views/**/*")
-	r.Static("/static", "./static/service")
+	r.Static("/static", "./static/chat")
 
 	//首页跳转
 	r.GET("/", func(c *gin.Context) {
@@ -82,12 +83,14 @@ func SetupRouter() *gin.Engine {
 		//用户登陆/注册
 		{
 			view.GET("login", func(c *gin.Context) {
-				CheckLogin(c)
 				user, _ := c.Cookie("user")
 				auth, _ := c.Cookie("auth")
 				if user != "" && auth != "" {
 					c.Redirect(http.StatusMovedPermanently, "/view/index")
+					return
 				}
+				help.DelCookie("user", c)
+				help.DelCookie("auth", c)
 				c.HTML(http.StatusOK, "login.html", nil)
 			})
 			//提交登陆
@@ -100,7 +103,8 @@ func SetupRouter() *gin.Engine {
 			view.GET("logout", func(c *gin.Context) {
 				help.DelCookie("user", c)
 				help.DelCookie("auth", c)
-				CheckLogin(c)
+
+				c.Redirect(http.StatusMovedPermanently, "/view/login")
 			})
 
 			view.GET("test", func(c *gin.Context) {
@@ -113,7 +117,7 @@ func SetupRouter() *gin.Engine {
 				CheckLogin(c)
 				mail, _ := c.Cookie("user")
 				key, _ := c.Cookie("auth")
-				c.HTML(http.StatusOK, "chat.html", gin.H{
+				c.HTML(http.StatusOK, "chatroom.html", gin.H{
 					"mail": mail,
 					"key":  key,
 				})
@@ -135,11 +139,19 @@ func SetupRouter() *gin.Engine {
 	//api 接口
 	api := r.Group("api")
 	{
-
+		api.GET("getUserInfo", func(c *gin.Context) {
+			msg := message.RequestMsg{Code: http.StatusOK}
+			mail := c.Query("mail")
+			userDao := userDao2.NewUserDao()
+			user := userDao.GetUserByMail(mail)
+			user.Password = ""
+			msg.Res = user
+			c.JSON(http.StatusOK, msg)
+		})
 		api.GET("test", func(c *gin.Context) {
 			msg := message.Message{
-				Type:  message.MsgTypeLogin,
-				Mail:  "wew@qq.com",
+				Type:  message.MsgTypeLeave,
+				Name:  "12q.com",
 				Msg:   "test",
 				ToUid: 10,
 			}

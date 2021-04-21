@@ -30,13 +30,13 @@ func Process(conn *websocket.Conn, mail string) {
 	//失去连接时处理的事情
 	defer func() {
 		//去除在线状态
-		if _, ok := global.ClientsGlobal[user.UserName]; ok {
+		if _, ok := global.ClientsGlobal[user.Mail]; ok {
 			delete(global.ClientsGlobal, user.Mail)
 		}
 		//添加用户离开消息
 		global.LeaveChan <- clint
 		//关闭链接
-
+		conn.Close()
 	}()
 	for {
 		//一直读取消息
