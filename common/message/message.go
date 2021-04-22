@@ -20,6 +20,7 @@ type Message struct {
 	Name  string `json:"username"` //用户名
 	ToUid int    `json:"to_uid"`   //接受人
 	Msg   string `json:"msg"`      //消息内容
+	Head  string `json:"head"`     //头像
 }
 
 // RequestMsg 界面ajax请求结构体

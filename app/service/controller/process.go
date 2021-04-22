@@ -14,7 +14,7 @@ import (
 func Process(conn *websocket.Conn, mail string) {
 
 	userDao := userDao2.NewUserDao()
-	user := userDao.GetUserByName(mail)
+	user := userDao.GetUserByMail(mail)
 
 	clint := &model.Client{
 		Conn: conn,
@@ -44,7 +44,7 @@ func Process(conn *websocket.Conn, mail string) {
 		if err != nil {
 			break
 		}
-		fmt.Println("ws:", string(msgStr))
+		//fmt.Println("ws:", string(msgStr))
 		//处理消息
 		ProcessMessage(msgStr)
 	}
@@ -53,6 +53,7 @@ func Process(conn *websocket.Conn, mail string) {
 //ProcessMessage 处理接受消息
 func ProcessMessage(msg []byte) {
 	Msg := &message.Message{}
+	//fmt.Println(string(msg))
 	err := json.Unmarshal(msg, Msg)
 	if err != nil {
 		fmt.Println("unmarshal err", err)

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>adv</title>
+    <link rel="stylesheet" href="/static/css/head.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.8.2/jquery.js"></script>
+    <script src="https://www.layuicdn.com/layer-v3.1.1/layer.js"></script>
+</head>
+<div class="main-content">
+    <div class="emoji-name">
+        <div>自定义形象</div>
+    </div>
+    <div class="emoji-preview">
+        <div class="emoji__wrapper">
+            <div class="emoji-face">
+                <div class="hat no-hat"></div>
+                <div class="eyebrows">
+                    <div class="eyebrow left no-eyebrows"></div>
+                    <div class="eyebrow right no-eyebrows"></div>
+                </div>
+                <div class="eyes">
+                    <div class="eye left default"></div>
+                    <div class="eye right default"></div>
+                </div>
+                <div class="mouth default"></div>
+                <div class="face-extras sweat"></div>
+                <div class="item default"></div>
+            </div>
+        </div>
+    </div>
+    <div class="emoji-choices">
+        <div class="emoji-choices__header">肤色</div>
+        <div class="emoji-choices__group emoji-choices__group--skin">
+            <div class="emoji-choice__skin selected js-choice selected" data-type="skin" data-multiple="no" data-name="skin-1"></div>
+            <div class="emoji-choice__skin js-choice" data-type="skin" data-multiple="no" data-name="skin-2"></div>
+            <div class="emoji-choice__skin js-choice" data-type="skin" data-multiple="no" data-name="skin-3"></div>
+            <div class="emoji-choice__skin js-choice" data-type="skin" data-multiple="no" data-name="skin-4"></div>
+            <div class="emoji-choice__skin js-choice" data-type="skin" data-multiple="no" data-name="skin-5"></div>
+            <div class="emoji-choice__skin js-choice" data-type="skin" data-multiple="no" data-name="skin-6"></div>
+        </div>
+        <div class="emoji-choices__header">眉毛</div>
+        <div class="emoji-choices__group">
+            <div class="emoji-choice__item js-choice selected" data-type="eyebrows" data-multiple="no" data-name="no-eyebrows"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyebrows" data-multiple="no" data-name="downwards"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyebrows" data-multiple="no" data-name="furrow"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyebrows" data-multiple="no" data-name="furrow-far"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyebrows" data-multiple="no" data-name="up-far"></div>
+        </div>
+        <div class="emoji-choices__header">眼睛</div>
+        <div class="emoji-choices__group">
+            <div class="emoji-choice__item js-choice selected" data-type="eyes" data-multiple="no" data-name="default"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="startled"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="heart"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="star"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="fire"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="squeeze"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="closed-up"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="closed-down"></div>
+            <div class="emoji-choice__item js-choice" data-type="eyes" data-multiple="no" data-name="lined"></div>
+        </div>
+        <div class="emoji-choices__header">嘴</div>
+        <div class="emoji-choices__group">
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="no-mouth"></div>
+            <div class="emoji-choice__item js-choice selected" data-type="mouth" data-multiple="no" data-name="default"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="upside"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="open"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="tongue"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="lined"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="frown"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="smile"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="curse"></div>
+            <div class="emoji-choice__item js-choice" data-type="mouth" data-multiple="no" data-name="grimace"></div>
+        </div>
+        <div class="emoji-choices__header">帽子</div>
+        <div class="emoji-choices__group">
+            <div class="emoji-choice__item js-choice selected" data-type="hat" data-multiple="no" data-name="no-hat"></div>
+            <div class="emoji-choice__item js-choice" data-type="hat" data-multiple="no" data-name="round-hat"></div>
+            <div class="emoji-choice__item js-choice" data-type="hat" data-multiple="no" data-name="wizard-hat"></div>
+            <div class="emoji-choice__item js-choice" data-type="hat" data-multiple="no" data-name="sorting-hat"></div>
+            <div class="emoji-choice__item js-choice" data-type="hat" data-multiple="no" data-name="top-hat"></div>
+            <div class="emoji-choice__item js-choice" data-type="hat" data-multiple="no" data-name="traffic-cone"></div>
+            <div class="emoji-choice__item js-choice" data-type="hat" data-multiple="no" data-name="cactus"></div>
+            <div class="emoji-choice__item js-choice" data-type="hat" data-multiple="no" data-name="mickey"></div>
+        </div>
+        <div class="emoji-choices__header"> 配饰 </div>
+        <div class="emoji-choices__group">
+            <div class="emoji-choice__item js-choice selected" data-type="face-extras" data-multiple="no" data-name="sweat"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="tears"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="geek-glasses"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="sunglasses"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="crescent-glasses"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="blush"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="bandage"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="scarf-gryf"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="scarf-huff"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="scarf-rave"></div>
+            <div class="emoji-choice__item js-choice" data-type="face-extras" data-multiple="no" data-name="scarf-slyt"></div>
+        </div>
+        <div class="emoji-choices__header">物品</div>
+        <div class="emoji-choices__group">
+            <div class="emoji-choice__item js-choice selected" data-type="item" data-multiple="no" data-name="default"></div>
+            <div class="emoji-choice__item js-choice" data-type="item" data-multiple="no" data-name="shield"></div>
+            <div class="emoji-choice__item js-choice" data-type="item" data-multiple="no" data-name="dango"></div>
+            <div class="emoji-choice__item js-choice" data-type="item" data-multiple="no" data-name="wand"></div>
+            <div class="emoji-choice__item js-choice" data-type="item" data-multiple="no" data-name="coffee"></div>
+            <div class="emoji-choice__item-custom" data-type="item" data-multiple="no" data-name="custom">
+                <span>自定义文本： </span>
+                <input class="js-custom-item" maxlength="2" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var EmojiConfig ={
+        skin:"skin-1",
+        hat :"no-hat",
+        eyebrow :"no-eyebrows",
+        eye :"default",
+        mouth : "default",
+        faceExtras :"sweat",
+        item :"default",
+    }
+    console.log(JSON.stringify(EmojiConfig))
+    $(".js-choice").on("click", function() {
+        var type = $(this).data("type");
+        var multiple = $(this).data("multiple");
+        var name = $(this).data("name");
+        if (multiple === "no") {
+            if (type === "eyebrows" || type === "eyes") {
+                var typeSingle = type.slice(0, -1);
+                var parentDiv = $("div." + type);
+                parentDiv.empty();
+                var newDiv =
+                    '<div class="' +
+                    typeSingle +
+                    " left " +
+                    name +
+                    '"></div><div class="' +
+                    typeSingle +
+                    " right " +
+                    name +
+                    '"></div>';
+                $(parentDiv).append(newDiv);
+                $('.emoji-choices div[data-type="' + type + '"]').removeClass("selected");
+                $(this).addClass("selected");
+            } else if (type === "item") {
+                $(".item").text("");
+                $(".emoji-face")
+                    .find("." + type)
+                    .attr("class", type + " " + name);
+                $('.emoji-choices div[data-type="item"]').removeClass("selected");
+                $(this).addClass("selected");
+            } else if (type === "skin") {
+                $(".emoji-face").attr("class", "emoji-face " + " " + name);
+                $('.emoji-choices div[data-type="' + type + '"]').removeClass("selected");
+                $(this).addClass("selected");
+            } else {
+                $(".emoji-face")
+                    .find("." + type)
+                    .attr("class", type + " " + name);
+                $('.emoji-choices div[data-type="' + type + '"]').removeClass("selected");
+                $(this).addClass("selected");
+            }
+        } else {
+            $(this).toggleClass("selected");
+            var elementToCheck = $("div." + type + "." + name);
+            if (elementToCheck.length > 0) {
+                elementToCheck.remove();
+            } else {
+                var newDiv = '<div class="' + type + " " + name + '"></div>';
+                $(".emoji-face").append(newDiv);
+            }
+        }
+        upConfig(type,name)
+    });
+
+    $(".js-custom-item").on("keyup paste", function() {
+        var customItem = $(this).val();
+        $('.emoji-choices div[data-type="item"]').removeClass("selected");
+
+        $(".item").remove();
+        var newDiv = '<div class="item custom">' + customItem + "</div>";
+        $(".emoji-face").append(newDiv);
+    });
+
+    function save(){
+        $.ajax({
+            url:"/api/saveHead",
+            type:"get",
+            dataType:"json",
+            data:{"headConfig":JSON.stringify(EmojiConfig)},
+            success:function (e) {
+                if(e.code == 200){
+                    layer.msg(e.msg,{icon:6})
+                    setTimeout(function () {
+                        parent.location.reload()
+                    },1400)
+                }else{
+                    layer.msg(e.msg,{icon:5})
+                }
+
+            },
+            error:function (e) {
+                console.log(e)
+                layer.msg("未知错误！",{icon:5})
+            }
+        })
+    }
+    
+    function upConfig(typeName,name){
+        switch (typeName){
+            case "skin":
+                EmojiConfig.skin = name
+                break
+            case "eyebrows":
+                EmojiConfig.eyebrow = name
+                break
+            case "eyes" :
+                EmojiConfig.eye = name
+                break
+            case "mouth" :
+                EmojiConfig.mouth = name
+                break
+            case "hat" :
+                EmojiConfig.hat = name
+                break
+            case "face-extras" :
+                EmojiConfig.faceExtras = name
+                break
+            case "item" :
+                EmojiConfig.item = name
+                break
+        }
+    }
+</script>
+
+</html>

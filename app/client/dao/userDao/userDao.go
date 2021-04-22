@@ -43,6 +43,13 @@ func (t *userDao) GetUserById(id int) *userModel2.UserModel {
 	return user
 }
 
+// SaveHead 保存用户头像
+func (t *userDao) SaveHead(mail, head string) error {
+	Db := t.Db
+	res := Db.Model(&userModel2.UserModel{}).Where("mail = ?", mail).Select("head").Update("head", head)
+	return res.Error
+}
+
 // AddUser 添加用户
 func (t *userDao) AddUser(user *userModel2.UserModel) (bool, string) {
 	//判断是否存在

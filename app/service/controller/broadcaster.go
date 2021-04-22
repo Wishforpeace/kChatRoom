@@ -14,22 +14,24 @@ func Broadcaster() {
 		select {
 		//上线通知
 		case client := <-global.OnlineChan:
-			fmt.Printf("%s 加入了聊天室！", client.User.UserName)
+			//fmt.Printf("%s 加入了聊天室！", client.User.UserName)
 			msg := &message.Message{
 				Type: message.MsgTypeOnline,
 				Mail: client.User.Mail,
 				Name: client.User.UserName,
 				Msg:  fmt.Sprintf("%s 加入了聊天室！", client.User.UserName),
+				Head: client.User.Head,
 			}
 			global.MessageChan <- msg
 		//离线通知
 		case client := <-global.LeaveChan:
-			fmt.Printf("%s 离开了聊天室！", client.User.UserName)
+			//fmt.Printf("%s 离开了聊天室！", client.User.UserName)
 			msg := &message.Message{
 				Type: message.MsgTypeLeave,
 				Mail: client.User.Mail,
 				Name: client.User.UserName,
 				Msg:  fmt.Sprintf("%s 离开了聊天室！", client.User.UserName),
+				Head: client.User.Head,
 			}
 			global.MessageChan <- msg
 		//转发消息

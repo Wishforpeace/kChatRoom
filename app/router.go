@@ -1,12 +1,11 @@
 package app
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	userController2 "kChatRoom/app/client/controller/userController"
-	userDao2 "kChatRoom/app/client/dao/userDao"
 	"kChatRoom/app/service"
+	"kChatRoom/app/service/controller"
 	"kChatRoom/common/global"
 	"kChatRoom/common/message"
 	"kChatRoom/utils/help"
@@ -122,6 +121,10 @@ func SetupRouter() *gin.Engine {
 					"key":  key,
 				})
 			})
+			view.GET("selectHead", func(c *gin.Context) {
+
+				c.HTML(http.StatusOK, "select-head.html", gin.H{})
+			})
 		}
 
 	}
@@ -139,24 +142,14 @@ func SetupRouter() *gin.Engine {
 	//api 接口
 	api := r.Group("api")
 	{
-		api.GET("getUserInfo", func(c *gin.Context) {
-			msg := message.RequestMsg{Code: http.StatusOK}
-			mail := c.Query("mail")
-			userDao := userDao2.NewUserDao()
-			user := userDao.GetUserByMail(mail)
-			user.Password = ""
-			msg.Res = user
-			c.JSON(http.StatusOK, msg)
-		})
+		api.GET("getUserInfo", controller.GetUserInfo)
+
+		api.GET("saveHead", controller.SaveHead)
+
 		api.GET("test", func(c *gin.Context) {
-			msg := message.Message{
-				Type:  message.MsgTypeLeave,
-				Name:  "12q.com",
-				Msg:   "test",
-				ToUid: 10,
-			}
-			str, _ := json.Marshal(msg)
-			fmt.Println(string(str))
+			Msg := &message.Message{}
+
+			fmt.Println(Msg)
 		})
 	}
 

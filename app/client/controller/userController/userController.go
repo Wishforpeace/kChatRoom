@@ -23,10 +23,10 @@ func Login(ctx *gin.Context) {
 	userDao := userDao3.NewUserDao()
 	msg := &message.RequestMsg{}
 	findUser := userDao.GetUserByMail(mail)
-	fmt.Println(findUser)
+	//fmt.Println(findUser)
 	if findUser.ID > 0 {
 		md5Pwd := fmt.Sprintf("%x", md5.Sum([]byte(pwd)))
-		fmt.Println(md5Pwd)
+		//fmt.Println(md5Pwd)
 		if md5Pwd == findUser.Password {
 			res, _ := common.Encrypt(fmt.Sprintf("%v", time.Now().UnixNano()), []byte("1d12jha8"))
 			help.SetCookie("user", findUser.Mail, ctx)
@@ -68,6 +68,7 @@ func Register(ctx *gin.Context) {
 			UserName: userName,
 			Mail:     mail,
 			Password: password,
+			Head:     "{\"hat\":\"no-hat\",\"eyebrow\":\"no-eyebrows\",\"eye\":\"default\",\"mouth\":\"default\",\"faceExtras\":\"sweat\",\"item\":\"default\"}",
 		}
 		userDao := userDao3.NewUserDao()
 
