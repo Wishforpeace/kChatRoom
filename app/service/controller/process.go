@@ -10,36 +10,6 @@ import (
 	"kChatRoom/common/message"
 )
 
-//onlyLoginCheck 唯一登陆
-func onlyLoginCheck(client *model.Client) bool {
-	msg := &message.Message{
-		Type: message.MsgTypeOnlyLogin,
-		Mail: client.User.Mail,
-		Name: client.User.UserName,
-		Msg:  "你的账户在其他设备登陆！",
-		Head: client.User.Head,
-	}
-
-	rd := global.RedisPoolGlobal.Get()
-	defer rd.Close()
-	/*isOk := true
-
-	//唯一登陆
-	onlyStr, err := redis.String(rd.Do("HGet","login_only", client.User.Mail))
-	if err != nil || onlyStr == ""{ //error
-		isOk = false
-	}else{
-		onlyTime := common.Decrypt(onlyStr,[]byte("1d12jha8"))
-		NewOnly, err := strconv.ParseInt(onlyTime, 10, 64)
-		if err != nil || {
-			isOk = false
-		}
-	}*/
-
-	global.MessageChan <- msg
-	return true
-}
-
 // Process 处理连接
 func Process(conn *websocket.Conn, mail string) {
 
