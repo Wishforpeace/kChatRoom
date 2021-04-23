@@ -148,13 +148,7 @@ func SetupRouter() *gin.Engine {
 		api.GET("saveHead", controller.SaveHead)
 
 		api.GET("test", func(c *gin.Context) {
-			rd := global.RedisPoolGlobal.Get()
-			defer rd.Close()
-			_, err := rd.Do("set", "test", "1")
-			if err != nil {
-				fmt.Println(err)
-				return
-			}
+			help.SetCookie("test", "123", c)
 
 			return
 			loginTimStr, _ := common.Encrypt(fmt.Sprintf("%v", time.Now().UnixNano()), []byte("1d12jha8"))
