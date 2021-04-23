@@ -150,7 +150,11 @@ func SetupRouter() *gin.Engine {
 		api.GET("test", func(c *gin.Context) {
 			rd := global.RedisPoolGlobal.Get()
 			defer rd.Close()
-			rd.Do("test", "1")
+			_, err := rd.Do("test", "1")
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
 
 			return
 			loginTimStr, _ := common.Encrypt(fmt.Sprintf("%v", time.Now().UnixNano()), []byte("1d12jha8"))
