@@ -17,9 +17,9 @@
     <nav class="menu">
       <ul class="items">
         <li class="item">
-          <i class="fa fa-home" aria-hidden="true"></i>
+          <i onclick="window.location.href='/view/index'" class="fa fa-home" aria-hidden="true"></i>
         </li>
-        <li class="item">
+        {{/*<li class="item">
           <i class="fa fa-user" aria-hidden="true"></i>
         </li>
         <li class="item">
@@ -30,14 +30,14 @@
         </li>
         <li class="item">
           <i class="fa fa-file" aria-hidden="true"></i>
-        </li>
+        </li>*/}}
         <li class="item">
-          <i class="fa fa-cog" aria-hidden="true"></i>
+          <span class="logout" onclick="window.location.href='/view/logout'">注销</span>
         </li>
       </ul>
     </nav>
 
-    <section class="discussions">
+    <section  style="background-color: white" class="discussions">
       <div class="discussion search">
         <div onclick="Open('设置头像','/view/selectHead','','',false)" class="main-content preview-head">
           <div style="transform: scale(0.35);background: none;" class="emoji-preview my-head">
@@ -65,73 +65,19 @@
         </div>
       </div>
       <div class="discussion message-active">
-        <div class="photo" style="background-image: url(https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg);">
+        <div class="photo" style="">
           <div class="online"></div>
         </div>
         <div class="desc-contact">
-          <p class="name">Megan Leib</p>
+          <p class="name">聊天室</p>
           <p class="message">9 pm at the bar if possible 😳</p>
         </div>
         <div class="timer">12 sec</div>
       </div>
-
-      <div class="discussion">
-        <div class="photo" style="background-image: url(http://e0.365dm.com/16/08/16-9/20/theirry-henry-sky-sports-pundit_3766131.jpg?20161212144602);">
-          <div class="online"></div>
-        </div>
-        <div class="desc-contact">
-          <p class="name">Dave Corlew</p>
-          <p class="message">Let's meet for a coffee or something today ?</p>
-        </div>
-        <div class="timer">3 min</div>
-      </div>
-
-      <div class="discussion">
-        <div class="photo" style="background-image: url(https://tinyclipart.com/resource/man/man-5.jpg);">
-        </div>
-        <div class="desc-contact">
-          <p class="name">Jerome Seiber</p>
-          <p class="message">I've sent you the annual report</p>
-        </div>
-        <div class="timer">42 min</div>
-      </div>
-
-
-      <div class="discussion">
-        <div class="photo" style="background-image: url(http://www.boutique-uns.com/uns/185-home_01grid/polo-femme.jpg);">
-        </div>
-        <div class="desc-contact">
-          <p class="name">Elsie Amador</p>
-          <p class="message">What the f**k is going on ?</p>
-        </div>
-        <div class="timer">1 day</div>
-      </div>
-
-      <div class="discussion">
-        <div class="photo" style="background-image: url(https://images.pexels.com/photos/979602/pexels-photo-979602.jpeg?auto=compress&cs=tinysrgb&h=350);">
-        </div>
-        <div class="desc-contact">
-          <p class="name">Billy Southard</p>
-          <p class="message">Ahahah 😂</p>
-        </div>
-        <div class="timer">4 days</div>
-      </div>
-
-      <div class="discussion">
-        <div class="photo" style="background-image: url(http://static.jbcgroup.com/news/pictures/cc70ae498569ecc11eaeff09224d4ba5.jpg);">
-          <div class="online"></div>
-        </div>
-        <div class="desc-contact">
-          <p class="name">Paul Walker</p>
-          <p class="message">You can't see me</p>
-        </div>
-        <div class="timer">1 week</div>
-      </div>
     </section>
     <section class="chat">
       <div class="header-chat">
-        <i class="icon fa fa-user-o" aria-hidden="true"></i>
-        <p class="name">Megan Leib</p>
+        <p class="name">公共聊天室</p>
         <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
       </div>
       <div class="messages-chat">
@@ -191,7 +137,7 @@
       console.log("Connection closed.");
       layer.msg("断开连接，请注销重新登陆！",{icon:5})
       setTimeout(function () {
-        //window.location.href="/view/logout"
+        $('.logout').click()
       },1400)
     };
   }

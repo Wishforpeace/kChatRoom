@@ -34,9 +34,17 @@ func Login(ctx *gin.Context) {
 			//添加redis登陆成功消息，用于安全验证
 			rd := global.RedisPoolGlobal.Get()
 			defer rd.Close()
-			rd.Do("Set", fmt.Sprintf("login_%s", mail), res)
-			rd.Do("EXPIRE", fmt.Sprintf("login_%s", mail), 30)
+			_, _ = rd.Do("Set", fmt.Sprintf("login_%s", mail), res)
+			_, _ = rd.Do("EXPIRE", fmt.Sprintf("login_%s", mail), 30)
 
+			client, ok := global.ClientsGlobal[mail]
+			if ok {
+				//已经在其他地方登陆关闭就地址连接
+				defer func() {
+					client.Conn.Close()
+					delete(global.ClientsGlobal, mail)
+				}()
+			}
 			msg.Code = 200
 			msg.Msg = "登陆成功！"
 		} else {
@@ -68,7 +76,7 @@ func Register(ctx *gin.Context) {
 			UserName: userName,
 			Mail:     mail,
 			Password: password,
-			Head:     "{\"hat\":\"no-hat\",\"eyebrow\":\"no-eyebrows\",\"eye\":\"default\",\"mouth\":\"default\",\"faceExtras\":\"sweat\",\"item\":\"default\"}",
+			Head:     "{\"skin\":\"skin-1\",\"hat\":\"no-hat\",\"eyebrow\":\"no-eyebrows\",\"eye\":\"default\",\"mouth\":\"default\",\"faceExtras\":\"sweat\",\"item\":\"default\"}",
 		}
 		userDao := userDao3.NewUserDao()
 

@@ -44,20 +44,20 @@ func Encrypt(text string, key []byte) (string, error) {
 
 // Decrypt 数据解密
 //key只能为8位   key := []byte("2fa6c1e9")
-func Decrypt(decrypted string, key []byte) (string, error) {
+func Decrypt(decrypted string, key []byte) string {
 	src, err := hex.DecodeString(decrypted)
 	if err != nil {
-		return "", err
+		return ""
 	}
 	block, err := des.NewCipher(key)
 	if err != nil {
-		return "", err
+		return ""
 	}
 	out := make([]byte, len(src))
 	dst := out
 	bs := block.BlockSize()
 	if len(src)%bs != 0 {
-		return "", errors.New("crypto/cipher: input not full blocks")
+		return ""
 	}
 	for len(src) > 0 {
 		block.Decrypt(dst, src[:bs])
@@ -65,5 +65,5 @@ func Decrypt(decrypted string, key []byte) (string, error) {
 		dst = dst[bs:]
 	}
 	out = ZeroUnPadding(out)
-	return string(out), nil
+	return string(out)
 }

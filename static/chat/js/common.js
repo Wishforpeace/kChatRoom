@@ -140,7 +140,7 @@ function CreatHead(userinfo){
     var head = JSON.parse(userinfo.head)
     $(".my-head").empty()
     var str='<div class="emoji__wrapper">' +
-        '              <div class="emoji-face">' +
+        '              <div class="emoji-face '+head.skin+'">' +
         '                <div class="hat '+head.hat+'"></div>' +
         '                <div class="eyebrows">' +
         '                  <div class="eyebrow left '+head.eyebrow+'"></div>' +

@@ -6,10 +6,12 @@ import (
 	userController2 "kChatRoom/app/client/controller/userController"
 	"kChatRoom/app/service"
 	"kChatRoom/app/service/controller"
+	"kChatRoom/common"
 	"kChatRoom/common/global"
-	"kChatRoom/common/message"
 	"kChatRoom/utils/help"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 //LoginAuth 登录后刷新权限组缓存
@@ -27,7 +29,7 @@ func LoginAuth() gin.HandlerFunc {
 			nowMail, err := c.Cookie("user")
 			nowAuth, err := c.Cookie("auth")
 			if err != nil || nowMail == "" || nowAuth == "" {
-				c.Redirect(http.StatusMovedPermanently, "/view/login")
+				c.Redirect(http.StatusFound, "/view/login")
 			}
 		}
 		c.Next()
@@ -47,8 +49,7 @@ func CheckLogin(c *gin.Context) {
 		nowMail, err := c.Cookie("user")
 		nowAuth, err := c.Cookie("auth")
 		if err != nil || nowMail == "" || nowAuth == "" {
-			fmt.Println("登陆过期！")
-			c.Redirect(http.StatusMovedPermanently, "/view/login")
+			c.Redirect(http.StatusFound, "/view/login")
 		}
 	}
 }
@@ -63,7 +64,7 @@ func SetupRouter() *gin.Engine {
 
 	//首页跳转
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/view/login")
+		c.Redirect(http.StatusFound, "/view/login")
 	})
 
 	r.GET("test", func(c *gin.Context) {
@@ -85,7 +86,7 @@ func SetupRouter() *gin.Engine {
 				user, _ := c.Cookie("user")
 				auth, _ := c.Cookie("auth")
 				if user != "" && auth != "" {
-					c.Redirect(http.StatusMovedPermanently, "/view/index")
+					c.Redirect(http.StatusFound, "/view/index")
 					return
 				}
 				help.DelCookie("user", c)
@@ -100,10 +101,10 @@ func SetupRouter() *gin.Engine {
 			view.GET("register", userController2.Register)
 			//退出登陆
 			view.GET("logout", func(c *gin.Context) {
-				help.DelCookie("user", c)
-				help.DelCookie("auth", c)
+				c.SetCookie("user", "", -1, global.CookieGlobal.Path, global.CookieGlobal.Domain, global.CookieGlobal.Secure, global.CookieGlobal.HttpOnly)
+				c.SetCookie("auth", "", -1, global.CookieGlobal.Path, global.CookieGlobal.Domain, global.CookieGlobal.Secure, global.CookieGlobal.HttpOnly)
 
-				c.Redirect(http.StatusMovedPermanently, "/view/login")
+				c.Redirect(http.StatusFound, "/view/login")
 			})
 
 			view.GET("test", func(c *gin.Context) {
@@ -147,9 +148,14 @@ func SetupRouter() *gin.Engine {
 		api.GET("saveHead", controller.SaveHead)
 
 		api.GET("test", func(c *gin.Context) {
-			Msg := &message.Message{}
-
-			fmt.Println(Msg)
+			loginTimStr, _ := common.Encrypt(fmt.Sprintf("%v", time.Now().UnixNano()), []byte("1d12jha8"))
+			fmt.Println(loginTimStr)
+			res := common.Decrypt(loginTimStr, []byte("1d12jha8"))
+			parseInt, err := strconv.ParseInt(res, 10, 64)
+			if err != nil {
+				return
+			}
+			fmt.Println(parseInt)
 		})
 	}
 
