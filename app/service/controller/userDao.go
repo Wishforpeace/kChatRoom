@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	userDao2 "kChatRoom/app/client/dao/userDao"
+	"kChatRoom/common/global"
 	"kChatRoom/common/message"
 	"net/http"
 )
@@ -21,6 +22,16 @@ func SaveHead(c *gin.Context) {
 		Msg.Code = 200
 		Msg.Msg = "保存成功！"
 	}
+	c.JSON(http.StatusOK, Msg)
+}
+
+//GetOnlineUser 获取在线用户人数
+func GetOnlineUser(c *gin.Context) {
+	Msg := &message.RequestMsg{}
+	onlineNum := len(global.ClientsGlobal)
+	Msg.Res = onlineNum
+	Msg.Code = 200
+	Msg.Msg = "保存成功！"
 	c.JSON(http.StatusOK, Msg)
 }
 

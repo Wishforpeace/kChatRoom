@@ -1,2 +1,3 @@
 # kChatRoom
 
+使用Golang和websocket开发的一款在线聊天系统

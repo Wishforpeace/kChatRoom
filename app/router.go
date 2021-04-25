@@ -118,15 +118,10 @@ func SetupRouter() *gin.Engine {
 				mail, _ := c.Cookie("user")
 				key, _ := c.Cookie("auth")
 
-				url := "localhost:8060"
-				if c.Request.Host != "127.0.0.1:8060" {
-					url = "kchatroom.uiucode.com:8060"
-				}
-
 				c.HTML(http.StatusOK, "chatroom.html", gin.H{
 					"mail": mail,
 					"key":  key,
-					"url":  url,
+					"url":  c.Request.Host,
 				})
 			})
 			view.GET("selectHead", func(c *gin.Context) {
@@ -153,6 +148,8 @@ func SetupRouter() *gin.Engine {
 		api.GET("getUserInfo", controller.GetUserInfo)
 
 		api.GET("saveHead", controller.SaveHead)
+
+		api.GET("getOnlineUser", controller.GetOnlineUser)
 
 		api.GET("test", func(c *gin.Context) {
 			url := c.Request.Host

@@ -58,7 +58,7 @@
                            </div><!-- ./brand-logo -->
                             <p>kChatRoom在线聊天室在线演示</p>
                             <hr style="    border-top: 1px solid rgb(239 239 239 / 35%);">
-                            <p>聊天室当前共有100人</p>
+                            <p>当前在线人数：<span class="online_num">0</span></p>
                             <!-- social login buttons start -->
                             <!--<div class="row social-buttons">
                                 <div class="col-xs-4 col-sm-4 col-md-12">
@@ -755,7 +755,14 @@
     <script src="https://www.layuicdn.com/layer-v3.1.1/layer.js"></script>
     <script>
         $(function () {
-
+            $.ajax({
+                url:"/api/getOnlineUser",
+                dataType:"json",
+                type:"get",
+                success:function (e) {
+                    $(".online_num").html(e.res)
+                }
+            })
             //登陆
             $(".login_btn").click(function () {
                 var mail  = $(".loginForm .mail").val()
