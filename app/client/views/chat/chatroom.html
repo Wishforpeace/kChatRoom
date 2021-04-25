@@ -110,7 +110,8 @@
   TypeSmsOne = "TypeSmsOne" //私发
   var key = "{{.key}}"
   var mail = "{{.mail}}"
-  var link = "ws://localhost:8060/service/ws" + "?key=" + key + "&mail=" + mail
+  var url = "{{.url}}"
+  var link = "ws://" + url + "/service/ws" + "?key=" + key + "&mail=" + mail
   var UserInfo = {}
 
   {

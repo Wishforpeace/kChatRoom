@@ -117,9 +117,16 @@ func SetupRouter() *gin.Engine {
 				CheckLogin(c)
 				mail, _ := c.Cookie("user")
 				key, _ := c.Cookie("auth")
+
+				url := "localhost:8060"
+				if c.Request.Host != "127.0.0.1:8060" {
+					url = "kchatroom.uiucode.com:8060"
+				}
+
 				c.HTML(http.StatusOK, "chatroom.html", gin.H{
 					"mail": mail,
 					"key":  key,
+					"url":  url,
 				})
 			})
 			view.GET("selectHead", func(c *gin.Context) {
@@ -148,8 +155,9 @@ func SetupRouter() *gin.Engine {
 		api.GET("saveHead", controller.SaveHead)
 
 		api.GET("test", func(c *gin.Context) {
-			help.SetCookie("test", "123", c)
+			url := c.Request.Host
 
+			fmt.Println(url)
 			return
 			loginTimStr, _ := common.Encrypt(fmt.Sprintf("%v", time.Now().UnixNano()), []byte("1d12jha8"))
 			fmt.Println(loginTimStr)
