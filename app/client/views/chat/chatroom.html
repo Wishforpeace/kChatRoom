@@ -64,7 +64,7 @@
           <input type="text" placeholder="Search..."/>
         </div>
       </div>
-      <div class="discussion message-active">
+      <div class="discussion message-active chatroom-chat">
         <div class="photo" style="">
           <div class="online"></div>
         </div>
@@ -75,7 +75,7 @@
         <div class="timer">12 sec</div>
       </div>
     </section>
-    <section class="chat">
+    <section sendType="sms" class="chat">
       <div class="header-chat">
         <p class="name">公共聊天室</p>
         <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
@@ -161,7 +161,7 @@
   })()
 
   //type:"TypeSms" //群发 "TypeSmsOne" //私发
-  //{"type":"TypeLogin","mail":"188337190580@qq.com","username":"张三","to_uid":10,"msg":"test","head":""}
+  //{"type":"TypeLogin","mail":"188337190580@163.com","username":"张三","to_mail":1921197828@qq.com,"msg":"test","head":""}
   //发送消息
   $(".sendMsg").click(function () {
     var msg = $("#msg").val()
@@ -174,7 +174,7 @@
         type:"TypeSms",
         mail:mail,
         username:UserInfo.username,
-        to_uid:1,
+        to_mail:"",
         msg:msg,
         head:UserInfo.head,
       }

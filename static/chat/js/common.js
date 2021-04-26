@@ -21,7 +21,7 @@ function AddMsg(type , msg){
                 '            <div style="transform: scale(0.33);background: none;max-height: 45px;position: relative;' +
                 '    right: 20px;" class="emoji-preview my-head">' +
                 '              <div class="emoji__wrapper">' +
-                '                <div class="emoji-face">' +
+                '                <div  class="emoji-face">' +
                 '                  <div class="hat '+EmojiConfig.hat+'"></div>' +
                 '                  <div class="eyebrows">' +
                 '                    <div class="eyebrow left '+EmojiConfig.eyebrow+'"></div>' +
@@ -47,7 +47,7 @@ function AddMsg(type , msg){
                 '            <div class="main-content preview-head">' +
                 '              <div style="transform: scale(0.33);background: none;" class="emoji-preview my-head">' +
                 '                <div class="emoji__wrapper">' +
-                '                  <div class="emoji-face">' +
+                '                  <div mail="'+Msg.mail+'" to_name="'+Msg.username+'" onclick="SendToUser(this)" class="emoji-face">' +
                 '                    <div class="hat '+EmojiConfig.hat+'"></div>' +
                 '                    <div class="eyebrows">' +
                 '                      <div class="eyebrow left '+EmojiConfig.eyebrow+'"></div>' +
@@ -81,6 +81,24 @@ function AddMsg(type , msg){
 function AddTime(){
     var str ='<p class="time">17:30</p>'
     $(".messages-chat").append(str)
+}
+
+//私聊
+function SendToUser(obj){
+    var mail = $(obj).attr("mail")
+    var to_name = $(obj).attr("to_name")
+    $(".message-active").removeClass("message-active")
+    var str =' <div class="discussion message-active">' +
+        '        <div class="photo" style="">' +
+        '          <div class="online"></div>' +
+        '        </div>' +
+        '        <div class="desc-contact">' +
+        '          <p class="name">'+to_name+'</p>' +
+        '          <p class="message"> </p>' +
+        '        </div>' +
+        '        <div class="timer">刚刚</div>' +
+        '      </div>'
+    $(".discussions").append(str)
 }
 
 function AuthChat(){

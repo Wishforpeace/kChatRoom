@@ -59,7 +59,16 @@ func SendMsg(msg *message.Message) {
 		}
 	//私发消息
 	case message.MsgTypeSmsOne:
+		client, ok := global.ClientsGlobal[msg.ToMail]
+		if ok {
+			err := client.Conn.WriteMessage(websocket.TextMessage, msgStr)
+			if err != nil {
+				fmt.Println("send msg to ", msg.ToMail, " err:", err)
+				return
+			}
+		} else { //离线消息
 
+		}
 	}
 
 }

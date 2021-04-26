@@ -78,6 +78,7 @@ footer a .icons {
     position: relative;
     display: inline-block;
     font-size: 5px;
+    cursor: pointer;
 }
 .emoji-face.skin-1 {
     background: #fcc21b;

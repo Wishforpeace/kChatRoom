@@ -15,12 +15,12 @@ const (
 
 // Message 聊天通信消息题
 type Message struct {
-	Type  string `json:"type"`     //消息类型
-	Mail  string `json:"mail"`     //邮箱 唯一
-	Name  string `json:"username"` //用户名
-	ToUid int    `json:"to_uid"`   //接受人
-	Msg   string `json:"msg"`      //消息内容
-	Head  string `json:"head"`     //头像
+	Type   string `json:"type"`     //消息类型
+	Mail   string `json:"mail"`     //邮箱 唯一
+	Name   string `json:"username"` //用户名
+	ToMail string `json:"to_mail"`  //接受人
+	Msg    string `json:"msg"`      //消息内容
+	Head   string `json:"head"`     //头像
 }
 
 // RequestMsg 界面ajax请求结构体
