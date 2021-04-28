@@ -16,30 +16,28 @@
   <div class="row">
     <nav class="menu">
       <ul class="items">
-        <li class="item">
-          <i onclick="window.location.href='/view/index'" class="fa fa-home" aria-hidden="true"></i>
+        <li onclick="window.location.href='/view/index'" class="item">
+          <i  class="fa fa-home" aria-hidden="true"></i>
         </li>
-        {{/*<li class="item">
-          <i class="fa fa-user" aria-hidden="true"></i>
+        <li onclick="rename()"  class="item" >
+          <i  class="left_title" title="设置昵称" >昵称</i>
         </li>
-        <li class="item">
-          <i class="fa fa-pencil" aria-hidden="true"></i>
+        {{/*item-active*/}}
+        <li class="item " onclick="Open('设置头像','/view/selectHead','','',false)" >
+          <i class="left_title" title="设置头像"  >头像</i>
         </li>
-        <li class="item item-active">
-          <i class="fa fa-commenting" aria-hidden="true"></i>
-        </li>
-        <li class="item">
-          <i class="fa fa-file" aria-hidden="true"></i>
-        </li>*/}}
-        <li class="item">
-          <span class="logout" onclick="window.location.href='/view/logout'">注销</span>
+        <li class="item" onclick="logout()" >
+          <i class="left_title"   title="退出登陆" onclick="" >退出</i>
         </li>
       </ul>
     </nav>
 
     <section  style="background-color: white" class="discussions">
-      <div class="discussion search">
-        <div onclick="Open('设置头像','/view/selectHead','','',false)" class="main-content preview-head">
+      <div class="discussion">
+        <div style="margin-left: 20px">
+          <span>欢迎：</span><span class="username">-</span>
+        </div>
+        <div class="main-content preview-head">
           <div style="transform: scale(0.35);background: none;" class="emoji-preview my-head">
             <div class="emoji__wrapper">
               <div class="emoji-face">
@@ -59,20 +57,15 @@
             </div>
           </div>
         </div>
-        <div class="searchbar">
-          <i class="fa fa-search" aria-hidden="true"></i>
-          <input type="text" placeholder="Search..."/>
-        </div>
       </div>
       <div class="discussion message-active chatroom-chat">
         <div class="photo" style="">
-          <div class="online"></div>
         </div>
         <div class="desc-contact">
-          <p class="name">聊天室</p>
-          <p class="message">9 pm at the bar if possible 😳</p>
+          <p class="name">公共聊天室</p>
+          <p class="left_message message">*****</p>
         </div>
-        <div class="timer">12 sec</div>
+        <div class="timer">刚刚</div>
       </div>
     </section>
     <section sendType="sms" class="chat">
@@ -138,7 +131,7 @@
       console.log("Connection closed.");
       layer.msg("断开连接，请注销重新登陆！",{icon:5})
       setTimeout(function () {
-        $('.logout').click()
+        logout(0)
       },1400)
     };
   }
@@ -152,6 +145,7 @@
         UserInfo = e.res
         //console.log(UserInfo)
         CreatHead(UserInfo)
+        $(".username").html(UserInfo.username)
       },
       error:function (e){
         console.log(e)

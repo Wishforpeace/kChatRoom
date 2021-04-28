@@ -156,6 +156,8 @@ func SetupRouter() *gin.Engine {
 
 		api.GET("getOnlineUser", controller.GetOnlineUser)
 
+		api.GET("rename", controller.Rename)
+
 		api.GET("test", func(c *gin.Context) {
 			url := c.Request.Host
 

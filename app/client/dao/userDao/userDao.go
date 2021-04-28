@@ -65,3 +65,10 @@ func (t *userDao) AddUser(user *userModel2.UserModel) (bool, string) {
 		return true, ""
 	}
 }
+
+//SaveName 保存用户名
+func (t *userDao) SaveName(mail, name string) error {
+	Db := t.Db
+	res := Db.Model(&userModel2.UserModel{}).Where("mail = ?", mail).Select("username").Update("username", name)
+	return res.Error
+}

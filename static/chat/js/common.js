@@ -101,6 +101,17 @@ function SendToUser(obj){
     $(".discussions").append(str)
 }
 
+$(window).scroll(function () {
+    var divHeight =$('.messages-chat').height();//div 高度
+    var allHeight = $('.messages-chat')[0].scrollHeight; //总滚动长度
+    var distance = $('.messages-chat')[0].scrollTop; //已经滚动距离
+    console.log(distance)
+    //在底部
+    if((divHeight+distance+50) >= allHeight){
+        $(".newMsg").hide()
+    }
+})
+
 function AuthChat(){
     var divHeight =$('.messages-chat').height();//div 高度
     var allHeight = $('.messages-chat')[0].scrollHeight; //总滚动长度
@@ -204,4 +215,48 @@ function Open(title,url,w,h,full) {
     if(full){
         layer.full(index);
     }
+}
+
+
+//退出登陆
+function logout(is_wait_select =1){
+    if (is_wait_select === 1){
+        layer.confirm('确定退出登陆吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href='/view/logout'
+        }, function(){
+        });
+    }else{
+        window.location.href='/view/logout'
+    }
+
+}
+
+//修改昵称
+function rename(){
+    layer.prompt({title: '请输入新的昵称(10字内)', formType: 3,value:UserInfo.username}, function(name, index){
+        if(name.length >10){
+            layer.msg("长度超过限制！",{icon:5})
+            return false
+        }
+        layer.close(index);
+        var load = layer.load()
+        $.ajax({
+            url:"/api/rename",
+            dataType:"json",
+            type:"get",
+            data:{"newName":name},
+            success:function (e) {
+                layer.msg(e.msg+",刷新生效！",{icon:6})
+                layer.close(load)
+            },
+            error:function (e){
+                console.log(e)
+                layer.msg("意外错误！",{icon:5})
+                layer.close(load)
+            }
+        })
+
+    });
 }

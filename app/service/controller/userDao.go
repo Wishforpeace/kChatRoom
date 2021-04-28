@@ -45,3 +45,20 @@ func GetUserInfo(c *gin.Context) {
 	msg.Res = user
 	c.JSON(http.StatusOK, msg)
 }
+
+//Rename 重命名
+func Rename(c *gin.Context) {
+	mail, err := c.Cookie("user")
+	name := c.Query("newName")
+	Msg := &message.RequestMsg{}
+	if err != nil || mail == "" || name == "" {
+		Msg.Code = 100
+		Msg.Msg = "保存失败！"
+	} else {
+		userDao := userDao2.NewUserDao()
+		userDao.SaveName(mail, name)
+		Msg.Code = 200
+		Msg.Msg = "保存成功！"
+	}
+	c.JSON(http.StatusOK, Msg)
+}
