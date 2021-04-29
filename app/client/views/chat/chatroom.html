@@ -10,8 +10,10 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.8.2/jquery.js"></script>
     <script src="https://www.layuicdn.com/layer-v3.1.1/layer.js"></script>
     <script src="/static/js/common.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.notify.js"></script>
   </head>
 <body >
+
 <div class="container">
   <div class="row">
     <nav class="menu">
@@ -65,7 +67,7 @@
           <p class="name">公共聊天室</p>
           <p class="left_message message">*****</p>
         </div>
-        <div class="timer">刚刚</div>
+        {{/*<div class="timer">刚刚</div>*/}}
       </div>
     </section>
     <section sendType="sms" class="chat">
@@ -99,6 +101,7 @@
   </div>
 </div>
 <script>
+  $.notifySetup({sound: '/static/music/classic.mp3'});
   const TypeSms = "TypeSms" //群发
   TypeSmsOne = "TypeSmsOne" //私发
   var key = "{{.key}}"
@@ -124,6 +127,7 @@
         var data = evt.data //消息体
         AddMsg(0,data)
         AuthChat()
+        $('<p></p>').notify();
       }
     };
 //关闭连接 连接失败！

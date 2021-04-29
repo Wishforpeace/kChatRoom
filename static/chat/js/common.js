@@ -74,6 +74,7 @@ function AddMsg(type , msg){
     }else{
         str ='<p class="time">'+Msg.msg+'</p>'
     }
+    $(".left_message").html(Msg.msg)
     $(".messages-chat").append(str)
 }
 
@@ -260,3 +261,4 @@ function rename(){
 
     });
 }
+
