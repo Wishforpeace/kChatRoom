@@ -11,6 +11,8 @@ func init() {
 	global.GblInit()
 	//消息广播
 	go controller.Broadcaster()
+	//聊天机器人
+	controller.InitRobot()
 }
 
 func main() {

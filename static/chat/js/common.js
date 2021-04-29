@@ -6,10 +6,10 @@
 //type :1 me 0 :you
 function AddMsg(type , msg){
     var Msg = JSON.parse(msg)
-    var EmojiConfig = JSON.parse(Msg.head)
     let str = ""
     //群发或者私聊
     if (Msg.type === TypeSms || Msg.type === TypeSmsOne){
+        var EmojiConfig = JSON.parse(Msg.head)
         if (type === 1){
             str =  ' <div class="message text-only">' +
                 '          <div style="margin-right: 45px!important;" class="response">' +
@@ -21,7 +21,7 @@ function AddMsg(type , msg){
                 '            <div style="transform: scale(0.33);background: none;max-height: 45px;position: relative;' +
                 '    right: 20px;" class="emoji-preview my-head">' +
                 '              <div class="emoji__wrapper">' +
-                '                <div  class="emoji-face">' +
+                '                <div  class="emoji-face '+ EmojiConfig.skin+'">' +
                 '                  <div class="hat '+EmojiConfig.hat+'"></div>' +
                 '                  <div class="eyebrows">' +
                 '                    <div class="eyebrow left '+EmojiConfig.eyebrow+'"></div>' +
@@ -47,7 +47,7 @@ function AddMsg(type , msg){
                 '            <div class="main-content preview-head">' +
                 '              <div style="transform: scale(0.33);background: none;" class="emoji-preview my-head">' +
                 '                <div class="emoji__wrapper">' +
-                '                  <div mail="'+Msg.mail+'" to_name="'+Msg.username+'" onclick="SendToUser(this)" class="emoji-face">' +
+                '                  <div mail="'+Msg.mail+'" to_name="'+Msg.username+'" onclick="SendToUser(this)" class="emoji-face '+ EmojiConfig.skin+'">' +
                 '                    <div class="hat '+EmojiConfig.hat+'"></div>' +
                 '                    <div class="eyebrows">' +
                 '                      <div class="eyebrow left '+EmojiConfig.eyebrow+'"></div>' +
@@ -71,10 +71,21 @@ function AddMsg(type , msg){
                 '          </div>' +
                 '        </div>'
         }
-    }else{
+    }else if(Msg.type === TypeRobot){
+        str = '<div class="message">' +
+            '            <div class="photo" style="background-image: url(/static/img/chatbot.jpg);">' +
+            '            </div>' +
+            ' <div style="display: inline-block">            ' +
+            '   <span style="margin-left: 20px">'+ Msg.username+'</span>' +
+            '   <br>' +
+            '   <p class="text">'+ Msg.msg+'</p>          ' +
+            ' </div>'+
+            '</div>'
+
+    } else{
         str ='<p class="time">'+Msg.msg+'</p>'
     }
-    $(".left_message").html(Msg.msg)
+    $(".left_message").html(Msg.username+": "+Msg.msg)
     $(".messages-chat").append(str)
 }
 

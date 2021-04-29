@@ -354,6 +354,11 @@ footer a .icons {
     border-bottom: 100px solid #444;
     border-radius: 20px;
 }
+
+.emoji-face .item{
+    position: absolute;
+    z-index: 999;
+}
 .hat.sorting-hat {
     background: #400000;
 }

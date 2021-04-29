@@ -18,6 +18,7 @@ func Process(conn *websocket.Conn, mail string) {
 
 	clint := &model.Client{
 		Conn: conn,
+		Type: model.ClientTypePeople,
 		User: user,
 	}
 	if _, ok := global.ClientsGlobal[user.Mail]; !ok {
@@ -26,6 +27,8 @@ func Process(conn *websocket.Conn, mail string) {
 
 	//加入成功消息
 	global.OnlineChan <- clint
+	//机器人发送新人添加聊天室消息
+	WelcomeMsg(user.UserName)
 
 	//失去连接时处理的事情
 	defer func() {

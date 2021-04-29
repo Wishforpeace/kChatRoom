@@ -5,6 +5,7 @@ const (
 	MsgTypeLeave  = "TypeLeave"  //离线
 	MsgTypeSms    = "TypeSms"    //群发
 	MsgTypeSmsOne = "TypeSmsOne" //私发
+	MsgTypeRobot  = "TypeRobot"  //私发
 )
 
 //用户在线状态

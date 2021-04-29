@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/websocket"
+	"kChatRoom/app/service/model"
 	"kChatRoom/common/global"
 	"kChatRoom/common/message"
 )
@@ -47,8 +48,8 @@ func SendMsg(msg *message.Message) {
 	switch msg.Type {
 	case message.MsgTypeLeave, message.MsgTypeSms, message.MsgTypeOnline:
 		for _, client := range global.ClientsGlobal {
-			//排除自己
-			if client.User.Mail != msg.Mail {
+			//排除自己 和机器人
+			if client.User.Mail != msg.Mail && client.Type != model.ClientTypeRobot {
 				//if true {
 				err := client.Conn.WriteMessage(websocket.TextMessage, msgStr)
 				if err != nil {
@@ -57,6 +58,19 @@ func SendMsg(msg *message.Message) {
 				}
 			}
 		}
+	case message.MsgTypeRobot:
+		for _, client := range global.ClientsGlobal {
+			//排除机器人
+			if client.Type != model.ClientTypeRobot {
+				//if true {
+				err := client.Conn.WriteMessage(websocket.TextMessage, msgStr)
+				if err != nil {
+					fmt.Println("send msg err:", err)
+					return
+				}
+			}
+		}
+
 	//私发消息
 	case message.MsgTypeSmsOne:
 		client, ok := global.ClientsGlobal[msg.ToMail]
