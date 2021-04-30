@@ -4,9 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/websocket"
+	chatLogDao2 "kChatRoom/app/client/dao/chatLogDao"
+	"kChatRoom/app/client/model/chatLogModel"
 	"kChatRoom/app/service/model"
 	"kChatRoom/common/global"
 	"kChatRoom/common/message"
+	"time"
 )
 
 // Broadcaster 监听消息 消息转发
@@ -44,6 +47,9 @@ func Broadcaster() {
 
 //SendMsg 处理转发消息
 func SendMsg(msg *message.Message) {
+	//保存聊天记录
+	go saveChatLog(msg, time.Now())
+
 	msgStr, _ := json.Marshal(msg)
 	switch msg.Type {
 	case message.MsgTypeLeave, message.MsgTypeSms, message.MsgTypeOnline:
@@ -58,6 +64,7 @@ func SendMsg(msg *message.Message) {
 				}
 			}
 		}
+	//机器人
 	case message.MsgTypeRobot:
 		for _, client := range global.ClientsGlobal {
 			//排除机器人
@@ -70,7 +77,6 @@ func SendMsg(msg *message.Message) {
 				}
 			}
 		}
-
 	//私发消息
 	case message.MsgTypeSmsOne:
 		client, ok := global.ClientsGlobal[msg.ToMail]
@@ -85,4 +91,22 @@ func SendMsg(msg *message.Message) {
 		}
 	}
 
+}
+
+//saveChatLog 保存聊天记录
+func saveChatLog(msg *message.Message, time time.Time) {
+	if msg.Type == message.MsgTypeSms || msg.Type == message.MsgTypeRobot {
+		log := &chatLogModel.ChatLogModel{
+			Type:      msg.Type,
+			Mail:      msg.Mail,
+			Msg:       msg.Msg,
+			Head:      msg.Head,
+			CreatedAt: time,
+		}
+		chatLogDao := chatLogDao2.NewChatLogDao()
+		err := chatLogDao.SaveLog(log)
+		if err != nil {
+			fmt.Println("保存聊天记录失败！err=", err)
+		}
+	}
 }

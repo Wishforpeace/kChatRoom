@@ -97,6 +97,7 @@ function AddTime(){
 
 //私聊
 function SendToUser(obj){
+    return false
     var mail = $(obj).attr("mail")
     var to_name = $(obj).attr("to_name")
     $(".message-active").removeClass("message-active")
@@ -260,7 +261,7 @@ function rename(){
             type:"get",
             data:{"newName":name},
             success:function (e) {
-                layer.msg(e.msg+",刷新生效！",{icon:6})
+                layer.msg(e.msg,{icon:6})
                 layer.close(load)
             },
             error:function (e){

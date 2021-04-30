@@ -4,14 +4,12 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	userController2 "kChatRoom/app/client/controller/userController"
+	"kChatRoom/app/client/dao/chatLogDao"
 	"kChatRoom/app/service"
 	"kChatRoom/app/service/controller"
-	"kChatRoom/common"
 	"kChatRoom/common/global"
 	"kChatRoom/utils/help"
 	"net/http"
-	"strconv"
-	"time"
 )
 
 //LoginAuth 登录后刷新权限组缓存
@@ -159,18 +157,15 @@ func SetupRouter() *gin.Engine {
 		api.GET("rename", controller.Rename)
 
 		api.GET("test", func(c *gin.Context) {
-			url := c.Request.Host
+			logDao := chatLogDao.NewChatLogDao()
+			res := logDao.GetChatLog(3, 1)
 
-			fmt.Println(url)
-			return
-			loginTimStr, _ := common.Encrypt(fmt.Sprintf("%v", time.Now().UnixNano()), []byte("1d12jha8"))
-			fmt.Println(loginTimStr)
-			res := common.Decrypt(loginTimStr, []byte("1d12jha8"))
-			parseInt, err := strconv.ParseInt(res, 10, 64)
-			if err != nil {
-				return
+			for _, v := range res {
+				fmt.Println(v)
 			}
-			fmt.Println(parseInt)
+
+			return
+
 		})
 	}
 
