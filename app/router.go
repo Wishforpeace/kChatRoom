@@ -10,6 +10,7 @@ import (
 	"kChatRoom/common/global"
 	"kChatRoom/utils/help"
 	"net/http"
+	"strconv"
 )
 
 //LoginAuth 登录后刷新权限组缓存
@@ -156,15 +157,23 @@ func SetupRouter() *gin.Engine {
 
 		api.GET("rename", controller.Rename)
 
-		api.GET("test", func(c *gin.Context) {
+		api.GET("/getChatLog", func(c *gin.Context) {
+			pageStr := c.DefaultQuery("page", "1")
+			page, _ := strconv.Atoi(pageStr)
+			limitStr := c.DefaultQuery("limit", "5")
+			limit, _ := strconv.Atoi(limitStr)
+
 			logDao := chatLogDao.NewChatLogDao()
-			res := logDao.GetChatLog(3, 1)
-
+			res := logDao.GetChatLog(page, limit)
 			for _, v := range res {
-				fmt.Println(v)
+				if v.Mail == controller.RobotMail {
+					v.UserName = controller.RobotName
+				}
 			}
+			c.JSON(http.StatusOK, res)
+		})
 
-			return
+		api.GET("test", func(c *gin.Context) {
 
 		})
 	}

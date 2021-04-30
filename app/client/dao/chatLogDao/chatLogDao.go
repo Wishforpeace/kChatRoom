@@ -42,5 +42,6 @@ func (t *chatLogDao) GetChatLog(page, pageSize int) []*ChatLogView {
 		Db = Db.Limit(pageSize).Offset((page - 1) * pageSize)
 	}
 	_ = Db.Order("l.`id` desc").Find(&logs)
+
 	return logs
 }

@@ -1,11 +1,19 @@
+//聊天记录页码
+var ChatPage = 1
+var PageStatus = 1
 
 
-
+getChatLog()
 
 //追加消息
 //type :1 me 0 :you
-function AddMsg(type , msg){
-    var Msg = JSON.parse(msg)
+// inputType 1 最新插入 0 末尾插入
+function AddMsg(type , msg,inputType = 1){
+    if( (typeof msg=='string')){
+        var Msg = JSON.parse(msg)
+    }else{
+        var Msg =msg
+    }
     let str = ""
     //群发或者私聊
     if (Msg.type === TypeSms || Msg.type === TypeSmsOne){
@@ -85,8 +93,12 @@ function AddMsg(type , msg){
     } else{
         str ='<p class="time">'+Msg.msg+'</p>'
     }
-    $(".left_message").html(Msg.username+": "+Msg.msg)
-    $(".messages-chat").append(str)
+    if(inputType === 1){
+        $(".left_message").html(Msg.username+": "+Msg.msg)
+        $(".messages-chat").append(str)
+    }else{
+        $(".messages-chat").prepend(str)
+    }
 }
 
 //追加聊天时间
@@ -114,16 +126,23 @@ function SendToUser(obj){
     $(".discussions").append(str)
 }
 
-$(window).scroll(function () {
-    var divHeight =$('.messages-chat').height();//div 高度
-    var allHeight = $('.messages-chat')[0].scrollHeight; //总滚动长度
-    var distance = $('.messages-chat')[0].scrollTop; //已经滚动距离
-    console.log(distance)
-    //在底部
-    if((divHeight+distance+50) >= allHeight){
-        $(".newMsg").hide()
-    }
-})
+$(document).ready(function(){
+    $("#messages-chat").scroll(function () {
+        var divHeight =$('.messages-chat').height();//div 高度
+        var allHeight = $('.messages-chat')[0].scrollHeight; //总滚动长度
+        var distance = $('.messages-chat')[0].scrollTop; //已经滚动距离
+        if((divHeight+distance+50) >= allHeight){
+            chatBottom();
+        }
+        if(distance === 0 ){
+            if (PageStatus === 1){
+                getChatLog(ChatPage)
+            }
+        }
+
+    })
+});
+
 
 function AuthChat(){
     var divHeight =$('.messages-chat').height();//div 高度
@@ -272,5 +291,35 @@ function rename(){
         })
 
     });
+}
+
+function getChatLog(page=1,limit=5){
+    setTimeout(function () {
+        PageStatus = 0
+        var load = layer.load()
+        $.ajax({
+            url:"/api/getChatLog",
+            dataType:"json",
+            type:"get",
+            data:{"page":page,"limit":limit},
+            success:function (e) {
+                $.each(e,function (index,val) {
+                    var msgType = 1
+                    if (val.mail === UserInfo.mail){
+                        msgType = 0
+                    }
+                    AddMsg(msgType,val,0)
+                })
+                ChatPage += 1
+                PageStatus = 1
+                layer.close(load)
+            },
+            error:function (e){
+                console.log(e)
+                PageStatus = 1
+                layer.close(load)
+            }
+        })
+    },1000)
 }
 
