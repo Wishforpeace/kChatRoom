@@ -95,7 +95,7 @@ func SendMsg(msg *message.Message) {
 
 //saveChatLog 保存聊天记录
 func saveChatLog(msg *message.Message, time time.Time) {
-	if msg.Type == message.MsgTypeSms || msg.Type == message.MsgTypeRobot {
+	if msg.Type == message.MsgTypeSms {
 		log := &chatLogModel.ChatLogModel{
 			Type:      msg.Type,
 			Mail:      msg.Mail,
