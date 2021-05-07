@@ -56,7 +56,6 @@ func SendMsg(msg *message.Message) {
 		for _, client := range global.ClientsGlobal {
 			//排除自己 和机器人
 			if client.User.Mail != msg.Mail && client.Type != model.ClientTypeRobot {
-				//if true {
 				err := client.Conn.WriteMessage(websocket.TextMessage, msgStr)
 				if err != nil {
 					fmt.Println("send msg err:", err)
@@ -69,7 +68,6 @@ func SendMsg(msg *message.Message) {
 		for _, client := range global.ClientsGlobal {
 			//排除机器人
 			if client.Type != model.ClientTypeRobot {
-				//if true {
 				err := client.Conn.WriteMessage(websocket.TextMessage, msgStr)
 				if err != nil {
 					fmt.Println("send msg err:", err)
