@@ -31,6 +31,7 @@ func InitRobot() {
 
 //WelcomeMsg 进入房间欢迎语
 func WelcomeMsg(name string) {
+
 	msg := &message.Message{
 		Type: message.MsgTypeRobot,
 		Mail: RobotMail,
