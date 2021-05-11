@@ -16,6 +16,7 @@ func init() {
 }
 
 func main() {
+
 	err := app.SetupRouter().Run(":8060")
 	if err != nil {
 		return
