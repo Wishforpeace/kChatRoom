@@ -11,11 +11,27 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 23/04/2021 16:25:00
+ Date: 14/05/2021 18:37:21
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for c_chat_log
+-- ----------------------------
+DROP TABLE IF EXISTS `c_chat_log`;
+CREATE TABLE `c_chat_log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type` char(20) DEFAULT NULL,
+  `mail` char(30) DEFAULT NULL,
+  `to_mail` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `msg` varchar(1000) DEFAULT NULL,
+  `head` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mail` (`mail`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Table structure for c_users
@@ -37,15 +53,8 @@ CREATE TABLE `c_users` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE COMMENT '用户名唯一',
   KEY `index_system_user_username` (`username`) USING BTREE,
-  KEY `index_system_user_status` (`status`) USING BTREE
+  KEY `index_system_user_status` (`status`) USING BTREE,
+  KEY `mail` (`mail`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10046 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='系统-用户';
-
--- ----------------------------
--- Records of c_users
--- ----------------------------
-BEGIN;
-INSERT INTO `c_users` VALUES (10044, '一叶之秋', '4297f44b13955235245b2497399d7a93', '18337180580@163.com', '', 0, '', 0, '{\"skin\":\"skin-3\",\"hat\":\"no-hat\",\"eyebrow\":\"no-eyebrows\",\"eye\":\"default\",\"mouth\":\"default\",\"faceExtras\":\"sweat\",\"item\":\"default\"}', 0, '2021-04-19 17:14:42', '2021-04-22 18:21:07');
-INSERT INTO `c_users` VALUES (10045, '城南花已开', '4297f44b13955235245b2497399d7a93', '1921197829@qq.com', '', 0, '', 0, '{\"hat\":\"no-hat\",\"eyebrow\":\"no-eyebrows\",\"eye\":\"default\",\"mouth\":\"default\",\"faceExtras\":\"sweat\",\"item\":\"default\"}', 0, '2021-04-20 18:35:55', '2021-04-20 18:35:55');
-COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
