@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 14/05/2021 18:37:21
+ Date: 17/05/2021 16:01:41
 */
 
 SET NAMES utf8mb4;
@@ -32,6 +32,12 @@ CREATE TABLE `c_chat_log` (
   PRIMARY KEY (`id`),
   KEY `mail` (`mail`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of c_chat_log
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for c_users
@@ -56,5 +62,13 @@ CREATE TABLE `c_users` (
   KEY `index_system_user_status` (`status`) USING BTREE,
   KEY `mail` (`mail`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10046 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='系统-用户';
+
+-- ----------------------------
+-- Records of c_users
+-- ----------------------------
+BEGIN;
+INSERT INTO `c_users` VALUES (10044, '测试用户1', 'e10adc3949ba59abbe56e057f20f883e', '18337180580@163.com', '', 0, '', 0, '{\"skin\":\"skin-6\",\"hat\":\"no-hat\",\"eyebrow\":\"no-eyebrows\",\"eye\":\"default\",\"mouth\":\"tongue\",\"faceExtras\":\"sweat\",\"item\":\"default\"}', 0, '2021-04-19 17:14:42', '2021-05-14 18:29:59');
+INSERT INTO `c_users` VALUES (10045, '测试用户2', 'e10adc3949ba59abbe56e057f20f883e', '1921197829@qq.com', '', 0, '', 0, '{\"hat\":\"no-hat\",\"eyebrow\":\"no-eyebrows\",\"eye\":\"default\",\"mouth\":\"default\",\"faceExtras\":\"sweat\",\"item\":\"default\"}', 0, '2021-04-20 18:35:55', '2021-04-20 18:35:55');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
