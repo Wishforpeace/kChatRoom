@@ -132,7 +132,6 @@ func SetupRouter() *gin.Engine {
 				"message": "pong",
 			})
 		})
-
 		chat.GET("ws", service.Ws)
 	}
 	//api 接口
