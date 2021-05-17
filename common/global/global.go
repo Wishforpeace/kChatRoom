@@ -75,7 +75,7 @@ func CfgInit() {
 	cookieRedis := viper.Sub("settings.cookie")
 	InitCookie(cookieRedis)
 
-	mailCfg := viper.Sub("mail")
+	mailCfg := viper.Sub("setting.mail")
 	InitMail(mailCfg)
 
 }
