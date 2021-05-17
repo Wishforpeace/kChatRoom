@@ -100,9 +100,20 @@ func Register(ctx *gin.Context) {
 // SendVerCode 发送验证码
 func SendVerCode(ctx *gin.Context) {
 	mail := strings.TrimSpace(ctx.Query("mail"))
+
 	rd := global.RedisPoolGlobal.Get()
 	defer rd.Close()
 	msg := &message.RequestMsg{}
+
+	//判断是否已经注册
+	userDao := userDao3.NewUserDao()
+	user := userDao.GetUserByMail(mail)
+	if user.ID > 0 { //已经注册
+		msg.Code = 300
+		msg.Msg = "此邮箱已经被注册！"
+		ctx.JSON(http.StatusOK, msg)
+		return
+	}
 
 	code := help.CreateValidateCode(6)
 	_, _ = rd.Do("Set", mail, code)
