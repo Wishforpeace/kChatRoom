@@ -8,6 +8,7 @@ import (
 	"kChatRoom/app/service/model"
 	"kChatRoom/common/message"
 	"kChatRoom/utils/cookie"
+	"kChatRoom/utils/mail"
 	"log"
 	"os"
 	"strings"
@@ -22,6 +23,9 @@ var RedisPoolGlobal *redis.Pool
 
 // CookieGlobal  cookie config
 var CookieGlobal *cookie.Cookie
+
+//MailGlobal mail.Mail
+var MailGlobal *mail.Mail
 
 //ClientsGlobal 在线用户列表
 var ClientsGlobal map[string]*model.Client
@@ -70,6 +74,10 @@ func CfgInit() {
 
 	cookieRedis := viper.Sub("settings.cookie")
 	InitCookie(cookieRedis)
+
+	mailCfg := viper.Sub("mail")
+	InitMail(mailCfg)
+
 }
 
 //initRedis 初始化redis
@@ -111,5 +119,15 @@ func InitCookie(cfg *viper.Viper) {
 		Domain:   cfg.GetString("cookieDomain"),
 		Secure:   cfg.GetBool("secure"),
 		HttpOnly: cfg.GetBool("httpOnly"),
+	}
+}
+
+//InitMail mail
+func InitMail(cfg *viper.Viper) {
+	MailGlobal = &mail.Mail{
+		User: cfg.GetString("user"),
+		Pass: cfg.GetString("pass"),
+		Host: cfg.GetString("host"),
+		Port: cfg.GetString("port"),
 	}
 }
