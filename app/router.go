@@ -84,7 +84,7 @@ func SetupRouter() *gin.Engine {
 			//提交登陆
 			view.GET("login-action", userController2.Login)
 			//验证码
-			view.GET("login/sendCode", userController2.SendVerCode)
+			view.GET("login-sendCode", userController2.SendVerCode)
 			//注册
 			view.GET("register", userController2.Register)
 			//退出登陆
