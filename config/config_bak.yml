@@ -37,9 +37,10 @@ settings:
     cookieDomain: 127.0.0.1:8060
     secure: false
     httpOnly: true
+
   #邮件发送配置
-  mail :
-    user : "738256016@qq.com"
-    pass : "zcvumybdoceqbcic" #密钥
-    host : "smtp.qq.com"
-    port : "465"
+  mail:
+    user: "" # 示例 123456@qq.com
+    pass: "" #密钥 示例 zcvumyqiloceqbci
+    host: "" # 示例 smtp.qq.com
+    port: "" # 示例 465
