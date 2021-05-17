@@ -45,10 +45,10 @@ func SendMail(mailTo []string, subject, body string) error {
 	//}
 	//定义邮箱服务器连接信息，如果是网易邮箱 pass填密码，qq邮箱填授权码
 	mailConn := map[string]string{
-		"user": global.MailGlobal.User,
-		"pass": global.MailGlobal.Pass,
-		"host": global.MailGlobal.Host,
-		"port": global.MailGlobal.Port,
+		"user": global.ViperGlobal.Sub("mail").GetString("user"),
+		"pass": global.ViperGlobal.Sub("mail").GetString("pass"),
+		"host": global.ViperGlobal.Sub("mail").GetString("host"),
+		"port": global.ViperGlobal.Sub("mail").GetString("port"),
 	}
 	port, _ := strconv.Atoi(mailConn["port"]) //转换端口类型为int
 
