@@ -37,22 +37,19 @@ func CreateValidateCode(width int) string {
 
 //SendMail 发送邮件
 func SendMail(mailTo []string, subject, body string) error {
-	//定义邮箱服务器连接信息，如果是网易邮箱 pass填密码，qq邮箱填授权码
-
 	//mailConn := map[string]string{
 	//  "user": "xxx@163.com",
 	//  "pass": "your password",
 	//  "host": "smtp.163.com",//smtp.exmail.qq.com smtp.qq.com
 	//  "port": "465",
 	//}
-
+	//定义邮箱服务器连接信息，如果是网易邮箱 pass填密码，qq邮箱填授权码
 	mailConn := map[string]string{
-		"user": "738256016@qq.com",
-		"pass": "zcvumybdoceqbcic",
-		"host": "smtp.qq.com",
-		"port": "465",
+		"user": global.ViperGlobal.Sub("mail").GetString("user"),
+		"pass": global.ViperGlobal.Sub("mail").GetString("pass"),
+		"host": global.ViperGlobal.Sub("mail").GetString("host"),
+		"port": global.ViperGlobal.Sub("mail").GetString("port"),
 	}
-
 	port, _ := strconv.Atoi(mailConn["port"]) //转换端口类型为int
 
 	m := gomail.NewMessage()
